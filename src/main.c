@@ -6,59 +6,159 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdbool.h>
+#include <math.h>
 #include <MLX42/MLX42.h>
 
-#define WIDTH 1024
-#define HEIGHT 1024
+#define M_PI 3.14159265358979323846
+#define WIDTH 320
+#define HEIGHT 320
+#define FOV 64
+int			pos[2] = {2, 2};
+char		map[5][6] = {
+	{'1', '1', '1', '1', '1', '\0'},
+	{'1', '0', '0', '0', '1', '\0'},
+	{'1', '0', '0', '0', '1', '\0'},
+	{'1', '0', '0', '0', '1', '\0'},
+	{'1', '1', '1', '1', '1', '\0'}
+};
 
-static mlx_image_t* image;
-
-// -----------------------------------------------------------------------------
-
-int32_t ft_pixel(int32_t r, int32_t g, int32_t b, int32_t a)
+double deg_to_rad(int deg)
 {
-    return (r << 24 | g << 16 | b << 8 | a);
+	while (deg > 360)
+		deg /= 360;
+	if (deg < 0)
+		return (deg * (M_PI / 180));
 }
 
-void ft_randomize(void* param)
+mlx_image_t	*draw_small_cube(mlx_t *mlx)
 {
-	(void)param;
-	for (uint32_t i = 0; i < image->width; ++i)
+	int x = -1;
+	int y = -1;
+	mlx_image_t *new_cube = mlx_new_image(mlx, 10, 10);
+
+	while (++y < 10)
 	{
-		for (uint32_t y = 0; y < image->height; ++y)
+		while (++x < 10)
 		{
-			uint32_t color = ft_pixel(
-				rand() % 0xFF, // R
-				rand() % 0xFF, // G
-				rand() % 0xFF, // B
-				rand() % 0xFF  // A
-			);
-			mlx_put_pixel(image, i, y, color);
+			mlx_put_pixel(new_cube, x, y, 0xFFFFFF);
+		}
+		x = -1;
+	}
+	return (new_cube);
+}
+
+void	ft_put_pixel(mlx_t *mlx, int x, int y)
+{
+	mlx_image_t *pixel = mlx_new_image(mlx, 4, 4);
+
+	mlx_put_pixel(pixel, 0, 0, 0x800080FF);
+	mlx_put_pixel(pixel, 1, 0, 0x800080FF);
+	mlx_put_pixel(pixel, 0, 1, 0x800080FF);
+	mlx_put_pixel(pixel, 1, 1, 0x800080FF);
+	mlx_image_to_window(mlx, pixel, x, y);
+}
+
+mlx_image_t	*draw_cube(mlx_t *mlx)
+{
+	int x = -1;
+	int y = -1;
+	mlx_image_t *new_cube = mlx_new_image(mlx, 64, 64);
+
+	while (++y < 64)
+	{
+		while (++x < 64)
+		{
+			mlx_put_pixel(new_cube, x, y, 0xFFFFFF);
+		}
+		x = -1;
+	}
+	return (new_cube);
+}
+
+void	first_ray(mlx_t *mlx, mlx_image_t *img, int deg)
+{
+	int	x = 172;
+	int	y = 129;
+	double	rad = deg_to_rad(deg);
+	bool 	hit = false;
+
+	mlx_image_to_window(mlx, draw_small_cube(mlx), x - 4, y - 4);
+	while (!hit)
+	{
+		int rayY = ((y / 64) * 64);
+		int rayX = (x - rayY) / -tan(rad) + x;
+		ft_put_pixel(mlx, rayX, rayY);
+		if (map[rayY / 64 - 1][rayX / 64] == '1')
+		{
+			printf("Hit!\n");
+			hit = true;
+		}
+		else
+		{
+			printf("No Hit!\n");
+			y = rayY;
+			x = rayX;
+			hit = true;
 		}
 	}
 }
 
-void ft_hook(void* param)
+void	draw_v_line(mlx_t *mlx, mlx_image_t *img, int x, int max_y)
 {
-	mlx_t* mlx = param;
+	int y = -1;
+	mlx_image_t *pixel;
 
-	if (mlx_is_key_down(mlx, MLX_KEY_ESCAPE))
-		mlx_close_window(mlx);
-	if (mlx_is_key_down(mlx, MLX_KEY_UP))
-		image->instances[0].y -= 5;
-	if (mlx_is_key_down(mlx, MLX_KEY_DOWN))
-		image->instances[0].y += 5;
-	if (mlx_is_key_down(mlx, MLX_KEY_LEFT))
-		image->instances[0].x -= 5;
-	if (mlx_is_key_down(mlx, MLX_KEY_RIGHT))
-		image->instances[0].x += 5;
+	pixel = mlx_new_image(mlx, 1, max_y);
+	while (++y < max_y)
+	{
+		mlx_put_pixel(pixel, 0, y, 0xFFFFFF);
+	}
+	mlx_image_to_window(mlx, pixel, x, 0);
 }
 
-// -----------------------------------------------------------------------------
+void	draw_h_line(mlx_t *mlx, mlx_image_t *img, int y, int max_x)
+{
+	int x = -1;
+	mlx_image_t *pixel;
+
+	pixel = mlx_new_image(mlx, max_x, 1);
+	while (++x < max_x)
+	{
+		mlx_put_pixel(pixel, x, 0, 0xFFFFFF);
+	}
+	mlx_image_to_window(mlx, pixel, 0, y);
+}
+
+void	draw_grid(mlx_t *mlx, mlx_image_t *img)
+{
+	int map_y = 5;
+	int map_x = 0;
+	while(map[0][map_x])
+		map_x++;
+	
+	int y = 64;
+	int x = 0;
+
+	while (y <= map_y * 64)
+	{
+		draw_h_line(mlx, img, y, map_x * 64);
+		y += 64;
+	}
+
+	y = 0;
+	x = 64;
+
+	while (x <= map_x * 64)
+	{
+		draw_v_line(mlx, img, x, map_y * 64);
+		x += 64;
+	}
+}
 
 int32_t main(void)
 {
-	mlx_t* mlx;
+	mlx_t		*mlx;
+	mlx_image_t	*img;
 
 	// Gotta error check this stuff
 	if (!(mlx = mlx_init(WIDTH, HEIGHT, "MLX42", true)))
@@ -66,22 +166,22 @@ int32_t main(void)
 		puts(mlx_strerror(mlx_errno));
 		return(EXIT_FAILURE);
 	}
-	if (!(image = mlx_new_image(mlx, 128, 128)))
+	if (!(img = mlx_new_image(mlx, 128, 128)))
 	{
 		mlx_close_window(mlx);
 		puts(mlx_strerror(mlx_errno));
 		return(EXIT_FAILURE);
 	}
-	if (mlx_image_to_window(mlx, image, 0, 0) == -1)
+	if (mlx_image_to_window(mlx, img, 0, 0) == -1)
 	{
 		mlx_close_window(mlx);
 		puts(mlx_strerror(mlx_errno));
 		return(EXIT_FAILURE);
 	}
-	
-	mlx_loop_hook(mlx, ft_randomize, mlx);
-	mlx_loop_hook(mlx, ft_hook, mlx);
-
+	draw_grid(mlx, img);
+	int deg = 20;
+	while (deg < 40)
+		first_ray(mlx, img, deg++);
 	mlx_loop(mlx);
 	mlx_terminate(mlx);
 	return (EXIT_SUCCESS);

@@ -6,7 +6,7 @@
 #    By: fcasaubo <fcasaubo@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/10/17 12:52:31 by fcasaubo          #+#    #+#              #
-#    Updated: 2024/10/17 13:29:15 by fcasaubo         ###   ########.fr        #
+#    Updated: 2024/10/18 10:43:20 by fcasaubo         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,7 +22,7 @@ OBJ_DIR	:=	obj
 OBJ		:=	$(SRC:%.c=$(OBJ_DIR)/%.o)
 
 CC		:=	gcc
-CCFLAGS	:=	-Wall -Wextra -Werror
+CCFLAGS	:=	# -Wall -Wextra -Werror
 
 all: $(MLX) $(NAME)
 
