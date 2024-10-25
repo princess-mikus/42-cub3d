@@ -6,7 +6,7 @@
 /*   By: fcasaubo <fcasaubo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/25 13:37:54 by fcasaubo          #+#    #+#             */
-/*   Updated: 2024/10/25 14:07:27 by fcasaubo         ###   ########.fr       */
+/*   Updated: 2024/10/25 14:30:37 by fcasaubo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ void	movement(void *mlx)
 	{
 		data->deg += 0.1;
 		if (data->deg > 6.28319)
-			data->deg = 0;
+			data->deg = 0.000001;
 		printf("%f\n", data->deg);
 	}
 

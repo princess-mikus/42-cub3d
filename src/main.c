@@ -67,21 +67,21 @@ mlx_image_t	*draw_cube(mlx_t *mlx)
 	return (new_cube);
 }
 
-void	north_ray(mlx_t *mlx, mlx_image_t *img, double deg)
+void	north_ray(t_data *data)
 {
-	int	x = 172;
-	int	y = 129;
-	double	rad = deg_to_rad(deg);
+	double	rad = 90;
+	int		x = data->player->instances->x;
+	int		y = data->player->instances->y;;
 	bool 	hit = false;
 
-	mlx_image_to_window(mlx, draw_small_cube(mlx), x - 4, y - 4);
 	while (!hit)
 	{
+		printf("x = %d, y = %d\n", x, y);
 		int rayY = ((y / 64) * 64);
 		int rayX = (x - rayY) / -tan(rad) + x;
-		ft_put_pixel(mlx, rayX, rayY);
 		if (map[rayY / 64 - 1][rayX / 64] == '1')
 		{
+			ft_put_pixel(data->mlx, rayX, rayY);
 			printf("Hit!\n");
 			hit = true;
 		}
@@ -92,6 +92,7 @@ void	north_ray(mlx_t *mlx, mlx_image_t *img, double deg)
 			x = rayX;
 			hit = true;
 		}
+		printf("rayX = %d, rayY = %d\n", rayX, rayY);
 	}
 }
 
@@ -146,15 +147,6 @@ void	draw_grid(t_data *mlx)
 	}
 }
 
-int32_t	round_if_small(double num)
-{
-	if (num < 0.5 && num <= 0)
-		return (0);
-	if (num >= 0.5 && num <= 1)
-		return (1);
-	return ((int32_t)round(num));
-}
-
 int32_t main(void)
 {
 	t_data	data;
@@ -179,11 +171,13 @@ int32_t main(void)
 	}
 	draw_grid(&data);
 	data.player = draw_small_cube(data.mlx);
-	mlx_image_to_window(data.mlx, data.player, (2 * 64) - 4, (2 * 64) - 4);
+	mlx_image_to_window(data.mlx, data.player, 176, 93);
 	data.px = data.player->instances[0].x;
 	data.py = data.player->instances[0].y;
 	data.deg = deg_to_rad(90);
 	mlx_loop_hook(data.mlx, movement, &data);
+	north_ray(&data);
+	//mlx_loop_hook(data.mlx, north_ray, &data);
 	mlx_loop(data.mlx);
 	mlx_terminate(data.mlx);
 	return (EXIT_SUCCESS);
