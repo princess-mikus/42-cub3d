@@ -3,17 +3,12 @@
 // See README in the root project for more information.
 // -----------------------------------------------------------------------------
 
-#include <stdio.h>
-#include <stdlib.h>
-#include <stdbool.h>
-#include <math.h>
-#include <MLX42/MLX42.h>
+#include "cub3d.h"
 
 #define M_PI 3.14159265358979323846
 #define WIDTH 320
 #define HEIGHT 320
 #define FOV 64
-int			pos[2] = {2, 2};
 char		map[5][6] = {
 	{'1', '1', '1', '1', '1', '\0'},
 	{'1', '0', '0', '0', '1', '\0'},
@@ -22,12 +17,11 @@ char		map[5][6] = {
 	{'1', '1', '1', '1', '1', '\0'}
 };
 
-double deg_to_rad(int deg)
+double deg_to_rad(double deg)
 {
 	while (deg > 360)
 		deg /= 360;
-	if (deg < 0)
-		return (deg * (M_PI / 180));
+	return ((2 * M_PI) - deg * M_PI / 180);
 }
 
 mlx_image_t	*draw_small_cube(mlx_t *mlx)
@@ -67,15 +61,13 @@ mlx_image_t	*draw_cube(mlx_t *mlx)
 	while (++y < 64)
 	{
 		while (++x < 64)
-		{
 			mlx_put_pixel(new_cube, x, y, 0xFFFFFF);
-		}
 		x = -1;
 	}
 	return (new_cube);
 }
 
-void	first_ray(mlx_t *mlx, mlx_image_t *img, int deg)
+void	north_ray(mlx_t *mlx, mlx_image_t *img, double deg)
 {
 	int	x = 172;
 	int	y = 129;
@@ -123,14 +115,13 @@ void	draw_h_line(mlx_t *mlx, mlx_image_t *img, int y, int max_x)
 
 	pixel = mlx_new_image(mlx, max_x, 1);
 	while (++x < max_x)
-	{
 		mlx_put_pixel(pixel, x, 0, 0xFFFFFF);
-	}
 	mlx_image_to_window(mlx, pixel, 0, y);
 }
 
-void	draw_grid(mlx_t *mlx, mlx_image_t *img)
+void	draw_grid(t_data *mlx)
 {
+	
 	int map_y = 5;
 	int map_x = 0;
 	while(map[0][map_x])
@@ -141,7 +132,7 @@ void	draw_grid(mlx_t *mlx, mlx_image_t *img)
 
 	while (y <= map_y * 64)
 	{
-		draw_h_line(mlx, img, y, map_x * 64);
+		draw_h_line(mlx->mlx, mlx->img, y, map_x * 64);
 		y += 64;
 	}
 
@@ -150,39 +141,50 @@ void	draw_grid(mlx_t *mlx, mlx_image_t *img)
 
 	while (x <= map_x * 64)
 	{
-		draw_v_line(mlx, img, x, map_y * 64);
+		draw_v_line(mlx->mlx, mlx->img, x, map_y * 64);
 		x += 64;
 	}
 }
 
+int32_t	round_if_small(double num)
+{
+	if (num < 0.5 && num <= 0)
+		return (0);
+	if (num >= 0.5 && num <= 1)
+		return (1);
+	return ((int32_t)round(num));
+}
+
 int32_t main(void)
 {
-	mlx_t		*mlx;
-	mlx_image_t	*img;
+	t_data	data;
 
 	// Gotta error check this stuff
-	if (!(mlx = mlx_init(WIDTH, HEIGHT, "MLX42", true)))
+	if (!(data.mlx = mlx_init(WIDTH, HEIGHT, "MLX42", true)))
 	{
 		puts(mlx_strerror(mlx_errno));
 		return(EXIT_FAILURE);
 	}
-	if (!(img = mlx_new_image(mlx, 128, 128)))
+	if (!(data.img = mlx_new_image(data.mlx, 128, 128)))
 	{
-		mlx_close_window(mlx);
+		mlx_close_window(data.mlx);
 		puts(mlx_strerror(mlx_errno));
 		return(EXIT_FAILURE);
 	}
-	if (mlx_image_to_window(mlx, img, 0, 0) == -1)
+	if (mlx_image_to_window(data.mlx, data.img, 0, 0) == -1)
 	{
-		mlx_close_window(mlx);
+		mlx_close_window(data.mlx);
 		puts(mlx_strerror(mlx_errno));
 		return(EXIT_FAILURE);
 	}
-	draw_grid(mlx, img);
-	int deg = 20;
-	while (deg < 40)
-		first_ray(mlx, img, deg++);
-	mlx_loop(mlx);
-	mlx_terminate(mlx);
+	draw_grid(&data);
+	data.player = draw_small_cube(data.mlx);
+	mlx_image_to_window(data.mlx, data.player, (2 * 64) - 4, (2 * 64) - 4);
+	data.px = data.player->instances[0].x;
+	data.py = data.player->instances[0].y;
+	data.deg = deg_to_rad(90);
+	mlx_loop_hook(data.mlx, movement, &data);
+	mlx_loop(data.mlx);
+	mlx_terminate(data.mlx);
 	return (EXIT_SUCCESS);
 }
