@@ -6,13 +6,14 @@
 #    By: fcasaubo <fcasaubo@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/10/17 12:52:31 by fcasaubo          #+#    #+#              #
-#    Updated: 2024/10/18 10:43:20 by fcasaubo         ###   ########.fr        #
+#    Updated: 2024/10/25 14:03:08 by fcasaubo         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME		:=	cub3d
 SRC_DIR		:=	src
-SRC			:=	main.c
+SRC			:=	main.c \
+				movement.c
 
 MLX_DIR		:=	mlx
 MLX			:=	$(MLX_DIR)/build/libmlx42.a -ldl -lglfw -pthread -lm
