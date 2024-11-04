@@ -26,13 +26,17 @@ double	south_ray(t_data *data, double rad)
 	int		y = data->player->instances->y;
 	int 	rayY;
 	int		rayX;
+	int		offX;
+	int		offY;
 	bool 	hit = false;
 
 	while (!hit)
 	{
-		rayY = ((y / 64) * 64);
-		rayX = (x + rayY) / -tan(rad) + x;
-		if (map2[rayY / 64 - 1][rayX / 64] == '1')
+		rayY = (((y / 64) + 1) * 64);
+		rayX = (rayY - y) / -(1 / tan(rad)) + x;
+		printf("%d %d\n", x, y);
+		printf("%d, %d\n", rayX, rayY);
+		if (map2[rayY / 64][rayX / 64] == '1')
 			hit = true;
 		else
 		{
@@ -47,20 +51,24 @@ double	north_ray(t_data *data, double rad)
 {
 	int		x = data->player->instances->x;
 	int		y = data->player->instances->y;
-	int 	rayY;
 	int		rayX;
+	int 	rayY;
+	int		offX;
+	int		offY;
 	bool 	hit = false;
 
 	while (!hit)
 	{
 		rayY = ((y / 64) * 64);
-		rayX = (x - rayY) / -tan(rad) + x;
+		rayX = (y - rayY) / -tan(rad) + x;
+		offY = 64;
+		offX = offY * (1 / tan(rad));
 		if (map2[rayY / 64 - 1][rayX / 64] == '1')
 			hit = true;
 		else
 		{
-			y = rayY;
-			x = rayX;
+			y = rayY + offY;
+			x = rayX + offX;
 		}
 	}
 	return (sqrt((rayX - data->player->instances->x) * (rayX - data->player->instances->x) + (rayY - data->player->instances->y) * (rayY - data->player->instances->y)));
@@ -72,7 +80,7 @@ void	select_ray(t_data *data)
 	double	h_ray;
 	double	angle;
 
-	angle = deg_to_rad(180);
+//	angle = deg_to_rad(180);
 /*
 	angle = data->rad - deg_to_rad(120 / 2);
 
@@ -94,5 +102,7 @@ void	select_ray(t_data *data)
 	}
 	*/
 
-	printf("%f %f\n", north_ray(data, deg_to_rad(90)), south_ray(data, deg_to_rad(180)));
+	double angle2 = 181;
+	printf("%f\n", north_ray(data, deg_to_rad(89)));
+	printf("%f\n", south_ray(data, deg_to_rad(angle2)));
 }
