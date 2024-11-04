@@ -6,7 +6,7 @@
 /*   By: fcasaubo <fcasaubo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/25 13:39:38 by fcasaubo          #+#    #+#             */
-/*   Updated: 2024/10/25 13:57:42 by fcasaubo         ###   ########.fr       */
+/*   Updated: 2024/11/04 12:38:00 by fcasaubo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ typedef struct s_data {
 	mlx_image_t	*player;
 	double		px;
 	double		py;
-	double		deg;
+	double		rad;
 }	t_data;
 
 #endif

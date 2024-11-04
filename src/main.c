@@ -5,10 +5,6 @@
 
 #include "cub3d.h"
 
-#define M_PI 3.14159265358979323846
-#define WIDTH 320
-#define HEIGHT 320
-#define FOV 64
 char		map[5][6] = {
 	{'1', '1', '1', '1', '1', '\0'},
 	{'1', '0', '0', '0', '1', '\0'},
@@ -65,35 +61,6 @@ mlx_image_t	*draw_cube(mlx_t *mlx)
 		x = -1;
 	}
 	return (new_cube);
-}
-
-void	north_ray(t_data *data)
-{
-	double	rad = 90;
-	int		x = data->player->instances->x;
-	int		y = data->player->instances->y;;
-	bool 	hit = false;
-
-	while (!hit)
-	{
-		printf("x = %d, y = %d\n", x, y);
-		int rayY = ((y / 64) * 64);
-		int rayX = (x - rayY) / -tan(rad) + x;
-		if (map[rayY / 64 - 1][rayX / 64] == '1')
-		{
-			ft_put_pixel(data->mlx, rayX, rayY);
-			printf("Hit!\n");
-			hit = true;
-		}
-		else
-		{
-			printf("No Hit!\n");
-			y = rayY;
-			x = rayX;
-			hit = true;
-		}
-		printf("rayX = %d, rayY = %d\n", rayX, rayY);
-	}
 }
 
 void	draw_v_line(mlx_t *mlx, mlx_image_t *img, int x, int max_y)
@@ -171,12 +138,12 @@ int32_t main(void)
 	}
 	draw_grid(&data);
 	data.player = draw_small_cube(data.mlx);
-	mlx_image_to_window(data.mlx, data.player, 176, 93);
+	mlx_image_to_window(data.mlx, data.player, 67, 157);
 	data.px = data.player->instances[0].x;
 	data.py = data.player->instances[0].y;
-	data.deg = deg_to_rad(90);
+	data.rad = deg_to_rad(89);
+	select_ray(&data);
 	mlx_loop_hook(data.mlx, movement, &data);
-	north_ray(&data);
 	//mlx_loop_hook(data.mlx, north_ray, &data);
 	mlx_loop(data.mlx);
 	mlx_terminate(data.mlx);
