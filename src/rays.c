@@ -6,7 +6,7 @@
 /*   By: fcasaubo <fcasaubo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/04 12:18:07 by fcasaubo          #+#    #+#             */
-/*   Updated: 2024/11/04 12:53:19 by fcasaubo         ###   ########.fr       */
+/*   Updated: 2024/11/06 11:40:09 by fcasaubo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,22 +25,34 @@ double	south_ray(t_data *data, double rad)
 	int		x = data->player->instances->x;
 	int		y = data->player->instances->y;
 	int 	rayY;
+	int		offY;
 	int		rayX;
+	int		offX;
 	bool 	hit = false;
 
+	rayY = ((y / 64) * 64);
+	rayX = (y - rayY) * (-1 / -tan(rad)) + x;
+	offY = -64;
+	offX = offY * (-1 / tan(rad));
+	printf("%d %d, %f\n", rayY, rayX, (-1 / -tan(rad)));
+	mlx_image_to_window(data->mlx, draw_small_cube(data->mlx), rayX, rayY - 4);
 	while (!hit)
 	{
-		rayY = ((y / 64) * 64);
-		rayX = (x + rayY) / -tan(rad) + x;
 		if (map2[rayY / 64 - 1][rayX / 64] == '1')
+		{
 			hit = true;
+			printf("%d %d\n", rayY, rayX);
+			mlx_image_to_window(data->mlx, draw_small_cube(data->mlx), rayX, rayY - 4);
+		}
 		else
 		{
-			y = rayY;
-			x = rayX;
+			rayY += offY;
+			rayX += offX;
+			mlx_image_to_window(data->mlx, draw_small_cube(data->mlx), rayX, rayY - 4);
+			printf("%d %d\n", rayY, rayX);
 		}
 	}
-	return (sqrt((rayX - data->player->instances->x) * (rayX - data->player->instances->x) + (rayY - data->player->instances->y) * (rayY - data->player->instances->y)));
+	return (sqrt((rayX - x) * (rayX - x) + (rayY - y) * (rayY - y)));
 }
 
 double	north_ray(t_data *data, double rad)
@@ -48,22 +60,34 @@ double	north_ray(t_data *data, double rad)
 	int		x = data->player->instances->x;
 	int		y = data->player->instances->y;
 	int 	rayY;
+	int		offY;
 	int		rayX;
+	int		offX;
 	bool 	hit = false;
 
+	rayY = ((y / 64) * 64);
+	rayX = (y - rayY) * (-1 / -tan(rad)) + x;
+	offY = 64;
+	offX = offY * (-1 / tan(rad));
+	printf("%d %d\n", rayY, rayX);
+	mlx_image_to_window(data->mlx, draw_small_cube(data->mlx), rayX, rayY - 4);
 	while (!hit)
 	{
-		rayY = ((y / 64) * 64);
-		rayX = (x - rayY) / -tan(rad) + x;
 		if (map2[rayY / 64 - 1][rayX / 64] == '1')
+		{
 			hit = true;
+			printf("%d %d\n", rayY, rayX);
+			mlx_image_to_window(data->mlx, draw_small_cube(data->mlx), rayX, rayY - 4);
+		}
 		else
 		{
-			y = rayY;
-			x = rayX;
+			rayY += offY;
+			rayX += offX;
+			mlx_image_to_window(data->mlx, draw_small_cube(data->mlx), rayX, rayY - 4);
+			printf("%d %d\n", rayY, rayX);
 		}
 	}
-	return (sqrt((rayX - data->player->instances->x) * (rayX - data->player->instances->x) + (rayY - data->player->instances->y) * (rayY - data->player->instances->y)));
+	return (sqrt((rayX - x) * (rayX - x) + (rayY - y) * (rayY - y)));
 }
 
 void	select_ray(t_data *data)
@@ -72,7 +96,12 @@ void	select_ray(t_data *data)
 	double	h_ray;
 	double	angle;
 
-	angle = deg_to_rad(180);
+	angle = deg_to_rad(92);
+
+	if (angle > M_PI)
+		h_ray = north_ray(data, angle);
+	else
+		h_ray = south_ray(data, angle);
 /*
 	angle = data->rad - deg_to_rad(120 / 2);
 
@@ -94,5 +123,5 @@ void	select_ray(t_data *data)
 	}
 	*/
 
-	printf("%f %f\n", north_ray(data, deg_to_rad(90)), south_ray(data, deg_to_rad(180)));
+	printf("%f\n", h_ray);
 }

@@ -20,5 +20,6 @@
 void	movement(void *mlx);
 double	deg_to_rad(double deg);
 void	select_ray(t_data *data);
+mlx_image_t	*draw_small_cube(mlx_t *mlx);
 
 #endif

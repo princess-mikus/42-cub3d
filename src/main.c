@@ -17,7 +17,7 @@ double deg_to_rad(double deg)
 {
 	while (deg > 360)
 		deg /= 360;
-	return ((2 * M_PI) - deg * M_PI / 180);
+	return (deg * M_PI / 180);
 }
 
 mlx_image_t	*draw_small_cube(mlx_t *mlx)
@@ -30,7 +30,7 @@ mlx_image_t	*draw_small_cube(mlx_t *mlx)
 	{
 		while (++x < 10)
 		{
-			mlx_put_pixel(new_cube, x, y, 0xFFFFFF);
+			mlx_put_pixel(new_cube, x, y, 0x800080FF);
 		}
 		x = -1;
 	}
@@ -137,6 +137,7 @@ int32_t main(void)
 		return(EXIT_FAILURE);
 	}
 	draw_grid(&data);
+	data.rad = deg_to_rad(90);
 	data.player = draw_small_cube(data.mlx);
 	mlx_image_to_window(data.mlx, data.player, 67, 157);
 	data.px = data.player->instances[0].x;
