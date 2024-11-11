@@ -139,10 +139,10 @@ int32_t main(void)
 	draw_grid(&data);
 	data.rad = deg_to_rad(90);
 	data.player = draw_small_cube(data.mlx);
-	mlx_image_to_window(data.mlx, data.player, 67, 157);
+	mlx_image_to_window(data.mlx, data.player, 169, 157);
 	data.px = data.player->instances[0].x;
 	data.py = data.player->instances[0].y;
-	data.rad = deg_to_rad(89);
+	data.rad = deg_to_rad(90);
 	select_ray(&data);
 	mlx_loop_hook(data.mlx, movement, &data);
 	//mlx_loop_hook(data.mlx, north_ray, &data);

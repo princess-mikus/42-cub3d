@@ -6,7 +6,7 @@
 /*   By: fcasaubo <fcasaubo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/04 12:18:07 by fcasaubo          #+#    #+#             */
-/*   Updated: 2024/11/06 11:40:09 by fcasaubo         ###   ########.fr       */
+/*   Updated: 2024/11/11 12:04:03 by fcasaubo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ char		map2[5][6] = {
 	{'1', '1', '1', '1', '1', '\0'}
 };
 
-double	south_ray(t_data *data, double rad)
+double	west_ray(t_data *data, double rad)
 {
 	int		x = data->player->instances->x;
 	int		y = data->player->instances->y;
@@ -30,11 +30,11 @@ double	south_ray(t_data *data, double rad)
 	int		offX;
 	bool 	hit = false;
 
-	rayY = ((y / 64) * 64);
-	rayX = (y - rayY) * (-1 / -tan(rad)) + x;
-	offY = -64;
-	offX = offY * (-1 / tan(rad));
-	printf("%d %d, %f\n", rayY, rayX, (-1 / -tan(rad)));
+	printf("%f = %d %d\n", rad, x, y);
+	rayX = ((x / 64) * 64) + 64;
+	rayY = (x - rayX) / -tan(rad) + y;
+	offX = -64;
+	offY = offX * tan(rad);
 	mlx_image_to_window(data->mlx, draw_small_cube(data->mlx), rayX, rayY - 4);
 	while (!hit)
 	{
@@ -46,7 +46,81 @@ double	south_ray(t_data *data, double rad)
 		}
 		else
 		{
+			rayY -= offY;
+			rayX += offX;
+			mlx_image_to_window(data->mlx, draw_small_cube(data->mlx), rayX, rayY - 4);
+			printf("%d %d\n", rayY, rayX);
+		}
+	}
+	return (sqrt((rayX - x) * (rayX - x) + (rayY - y) * (rayY - y)));
+}
+
+double	east_ray(t_data *data, double rad)
+{
+	int		x = data->player->instances->x;
+	int		y = data->player->instances->y;
+	int 	rayY;
+	int		offY;
+	int		rayX;
+	int		offX;
+	bool 	hit = false;
+
+	printf("%f = %d %d\n", rad, x, y);
+	rayX = ((x / 64) * 64) + 64;
+	rayY = (x - rayX) / -tan(rad) + y;
+	offX = 64;
+	offY = offX * tan(rad);
+	printf("%d %d\n", rayX, rayY);
+	mlx_image_to_window(data->mlx, draw_small_cube(data->mlx), rayX, rayY - 4);
+	while (!hit)
+	{
+		if (map2[rayY / 64][rayX / 64] == '1')
+		{
+			hit = true;
+			printf("%d %d\n", rayY, rayX);
+			mlx_image_to_window(data->mlx, draw_small_cube(data->mlx), rayX, rayY - 4);
+		}
+		else
+		{
+			hit = true;
 			rayY += offY;
+			rayX += offX;
+			mlx_image_to_window(data->mlx, draw_small_cube(data->mlx), rayX, rayY - 4);
+			printf("%d %d\n", rayY, rayX);
+		}
+	}
+	return (sqrt((rayX - x) * (rayX - x) + (rayY - y) * (rayY - y)));
+}
+
+double	south_ray(t_data *data, double rad)
+{
+	int		x = data->player->instances->x;
+	int		y = data->player->instances->y;
+	int 	rayY;
+	int		offY;
+	int		rayX;
+	int		offX;
+	bool 	hit = false;
+
+
+	printf("%f = %d %d\n", rad, x, y);
+	rayY = ((y / 64) * 64) + 64;
+	rayX = (y - rayY) * tan(rad) + x;
+	offY = -64;
+	offX = offY * tan(rad);
+	printf("%f = %d %d\n", rad, rayX, rayY);
+	mlx_image_to_window(data->mlx, draw_small_cube(data->mlx), rayX, rayY - 4);
+	while (!hit)
+	{
+		if (map2[rayY / 64][rayX / 64] == '1')
+		{
+			hit = true;
+			printf("%d %d\n", rayY, rayX);
+			mlx_image_to_window(data->mlx, draw_small_cube(data->mlx), rayX, rayY - 4);
+		}
+		else
+		{
+			rayY -= offY;
 			rayX += offX;
 			mlx_image_to_window(data->mlx, draw_small_cube(data->mlx), rayX, rayY - 4);
 			printf("%d %d\n", rayY, rayX);
@@ -65,11 +139,11 @@ double	north_ray(t_data *data, double rad)
 	int		offX;
 	bool 	hit = false;
 
+	printf("%f = %d %d\n", rad, x, y);
 	rayY = ((y / 64) * 64);
-	rayX = (y - rayY) * (-1 / -tan(rad)) + x;
+	rayX = (y - rayY) * (-1 / tan(rad)) + x;
 	offY = 64;
 	offX = offY * (-1 / tan(rad));
-	printf("%d %d\n", rayY, rayX);
 	mlx_image_to_window(data->mlx, draw_small_cube(data->mlx), rayX, rayY - 4);
 	while (!hit)
 	{
@@ -81,7 +155,7 @@ double	north_ray(t_data *data, double rad)
 		}
 		else
 		{
-			rayY += offY;
+			rayY -= offY;
 			rayX += offX;
 			mlx_image_to_window(data->mlx, draw_small_cube(data->mlx), rayX, rayY - 4);
 			printf("%d %d\n", rayY, rayX);
@@ -96,12 +170,16 @@ void	select_ray(t_data *data)
 	double	h_ray;
 	double	angle;
 
-	angle = deg_to_rad(92);
+	angle = deg_to_rad(134);
 
-	if (angle > M_PI)
+/*	if (angle < M_PI)
 		h_ray = north_ray(data, angle);
 	else
 		h_ray = south_ray(data, angle);
+*/	if (angle > M_PI / 2 && angle < M_PI + M_PI / 2)
+		v_ray = east_ray(data, angle);
+	else
+		v_ray = west_ray(data, angle);
 /*
 	angle = data->rad - deg_to_rad(120 / 2);
 
@@ -123,5 +201,5 @@ void	select_ray(t_data *data)
 	}
 	*/
 
-	printf("%f\n", h_ray);
+	//printf("%f, %f\n", h_ray, v_ray);
 }
