@@ -6,7 +6,7 @@
 /*   By: fcasaubo <fcasaubo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/25 13:37:54 by fcasaubo          #+#    #+#             */
-/*   Updated: 2024/11/11 10:50:04 by fcasaubo         ###   ########.fr       */
+/*   Updated: 2024/11/25 12:42:30 by fcasaubo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,17 @@ void	movement(void *mlx)
 		if (data->rad > 6.28319)
 			data->rad = 0.000001;
 	}
+	if (mlx_is_key_down(data->mlx, MLX_KEY_UP))
+	{
+		if (data->fov > 30)
+			data->fov -= 1;
+	}
+	if (mlx_is_key_down(data->mlx, MLX_KEY_DOWN))
+	{
+		if (data->fov < 120)
+			data->fov += 1;
+	}
 
-	data->player->instances[0].x = data->px;
-	data->player->instances[0].y = data->py;
+	//data->player->instances[0].x = data->px;
+	//data->player->instances[0].y = data->py;
 }

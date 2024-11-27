@@ -8,10 +8,11 @@
 #include <limits.h>
 #include <MLX42/MLX42.h>
 #include "structures.h"
+#include "libft.h"
 
-#define WIDTH 320
-#define HEIGHT 320
-#define FOV 64
+#define WIDTH 1024
+#define HEIGHT 1024
+#define FOV 90
 
 #define NORTH 1.5708
 #define RIGHT 3.14159
@@ -21,5 +22,7 @@ void	movement(void *mlx);
 double	deg_to_rad(double deg);
 void	select_ray(t_data *data);
 mlx_image_t	*draw_small_cube(mlx_t *mlx);
+mlx_image_t	*draw_small_cube_green(mlx_t *mlx);
+void	draw_image(t_data *data);
 
 #endif

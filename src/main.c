@@ -5,12 +5,17 @@
 
 #include "cub3d.h"
 
-char		map[5][6] = {
-	{'1', '1', '1', '1', '1', '\0'},
-	{'1', '0', '0', '0', '1', '\0'},
-	{'1', '0', '0', '0', '1', '\0'},
-	{'1', '0', '0', '0', '1', '\0'},
-	{'1', '1', '1', '1', '1', '\0'}
+char		map[10][10] = {
+	{'1', '1', '1', '1', '1', '1', '1', '1', '1', '\0'},
+	{'1', '0', '0', '0', '0', '0', '0', '0', '1', '\0'},
+	{'1', '0', '0', '0', '0', '0', '0', '0', '1', '\0'},
+	{'1', '0', '0', '0', '0', '0', '0', '0', '1', '\0'},
+	{'1', '0', '0', '0', '0', '0', '0', '0', '1', '\0'},
+	{'1', '0', '0', '0', '0', '0', '0', '0', '1', '\0'},
+	{'1', '0', '0', '0', '0', '0', '0', '0', '1', '\0'},
+	{'1', '0', '0', '0', '0', '0', '0', '0', '1', '\0'},
+	{'1', '0', '0', '0', '0', '0', '0', '0', '1', '\0'},
+	{'1', '0', '0', '0', '1', '1', '1', '1', '1', '\0'}
 };
 
 double deg_to_rad(double deg)
@@ -18,6 +23,23 @@ double deg_to_rad(double deg)
 	while (deg > 360)
 		deg /= 360;
 	return (deg * M_PI / 180);
+}
+
+mlx_image_t	*draw_small_cube_green(mlx_t *mlx)
+{
+	int x = -1;
+	int y = -1;
+	mlx_image_t *new_cube = mlx_new_image(mlx, 10, 10);
+
+	while (++y < 10)
+	{
+		while (++x < 10)
+		{
+			mlx_put_pixel(new_cube, x, y, 0x00FF00FF);
+		}
+		x = -1;
+	}
+	return (new_cube);
 }
 
 mlx_image_t	*draw_small_cube(mlx_t *mlx)
@@ -87,36 +109,10 @@ void	draw_h_line(mlx_t *mlx, mlx_image_t *img, int y, int max_x)
 	mlx_image_to_window(mlx, pixel, 0, y);
 }
 
-void	draw_grid(t_data *mlx)
-{
-	
-	int map_y = 5;
-	int map_x = 0;
-	while(map[0][map_x])
-		map_x++;
-	
-	int y = 64;
-	int x = 0;
-
-	while (y <= map_y * 64)
-	{
-		draw_h_line(mlx->mlx, mlx->img, y, map_x * 64);
-		y += 64;
-	}
-
-	y = 0;
-	x = 64;
-
-	while (x <= map_x * 64)
-	{
-		draw_v_line(mlx->mlx, mlx->img, x, map_y * 64);
-		x += 64;
-	}
-}
-
 int32_t main(void)
 {
-	t_data	data;
+	t_data		data;
+	t_params	parameters;
 
 	// Gotta error check this stuff
 	if (!(data.mlx = mlx_init(WIDTH, HEIGHT, "MLX42", true)))
@@ -124,7 +120,7 @@ int32_t main(void)
 		puts(mlx_strerror(mlx_errno));
 		return(EXIT_FAILURE);
 	}
-	if (!(data.img = mlx_new_image(data.mlx, 128, 128)))
+	if (!(data.img = mlx_new_image(data.mlx, HEIGHT, WIDTH)))
 	{
 		mlx_close_window(data.mlx);
 		puts(mlx_strerror(mlx_errno));
@@ -136,16 +132,20 @@ int32_t main(void)
 		puts(mlx_strerror(mlx_errno));
 		return(EXIT_FAILURE);
 	}
-	draw_grid(&data);
-	data.rad = deg_to_rad(90);
-	data.player = draw_small_cube(data.mlx);
-	mlx_image_to_window(data.mlx, data.player, 169, 157);
-	data.px = data.player->instances[0].x;
-	data.py = data.player->instances[0].y;
-	data.rad = deg_to_rad(90);
-	select_ray(&data);
+	parameters.NO = "./textures/Boccher.png";
+	parameters.SO = "./textures/Caitvi.png";
+	parameters.EA = "./textures/Hades.png";
+	parameters.WE = "./textures/ER.png";
+	load_textures(&data, &parameters);
+	data.fov = 90;
+	data.px = 196;
+	data.py = 67;
+	data.map_x = 32;
+	data.map_y = 32;
+	data.rad = deg_to_rad(270);
 	mlx_loop_hook(data.mlx, movement, &data);
-	//mlx_loop_hook(data.mlx, north_ray, &data);
+	mlx_loop_hook(data.mlx, select_ray, &data);
+	mlx_loop_hook(data.mlx, draw_image, &data);
 	mlx_loop(data.mlx);
 	mlx_terminate(data.mlx);
 	return (EXIT_SUCCESS);
