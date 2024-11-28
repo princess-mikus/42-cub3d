@@ -6,7 +6,7 @@
 /*   By: fcasaubo <fcasaubo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/25 13:39:38 by fcasaubo          #+#    #+#             */
-/*   Updated: 2024/11/27 11:17:09 by fcasaubo         ###   ########.fr       */
+/*   Updated: 2024/11/28 13:32:17 by fcasaubo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ typedef struct s_textures
 
 
 typedef struct s_data {
-	t_ray		ray[1024]; // Replace with WIDTH macros
+	t_ray		ray[2048]; // Replace with WIDTH macros
 	t_textures	texture;
 	mlx_t		*mlx;
 	mlx_image_t	*img;
@@ -80,6 +80,8 @@ typedef struct s_data {
 	double		py;
 	double		rad;
 	double		fov;
+	int			ceiling;
+	int			floor;
 }	t_data;
 
 #endif

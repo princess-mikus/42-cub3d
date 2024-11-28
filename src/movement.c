@@ -6,7 +6,7 @@
 /*   By: fcasaubo <fcasaubo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/25 13:37:54 by fcasaubo          #+#    #+#             */
-/*   Updated: 2024/11/25 12:42:30 by fcasaubo         ###   ########.fr       */
+/*   Updated: 2024/11/28 13:42:45 by fcasaubo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,11 @@
 void	movement(void *mlx)
 {
 	t_data	*data = mlx;
+	int	px_o;
+	int	py_o;
+
+	px_o = data->px;
+	py_o = data->py;
 	if (mlx_is_key_down(data->mlx, MLX_KEY_W))
 	{
 		data->px -= cos(data->rad);
@@ -57,7 +62,6 @@ void	movement(void *mlx)
 		if (data->fov < 120)
 			data->fov += 1;
 	}
-
-	//data->player->instances[0].x = data->px;
-	//data->player->instances[0].y = data->py;
+	if (px_o != data->px || py_o != data->py)
+		select_ray(data);
 }

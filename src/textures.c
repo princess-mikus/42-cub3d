@@ -6,7 +6,7 @@
 /*   By: fcasaubo <fcasaubo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/26 11:36:56 by fcasaubo          #+#    #+#             */
-/*   Updated: 2024/11/27 17:42:39 by fcasaubo         ###   ########.fr       */
+/*   Updated: 2024/11/28 11:13:30 by fcasaubo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,4 +51,6 @@ void	load_textures(t_data *data, t_params *parameters)
 	data->texture.south = texture_formatter(mlx_load_png(parameters->SO));
 	data->texture.east = texture_formatter(mlx_load_png(parameters->EA));
 	data->texture.west = texture_formatter(mlx_load_png(parameters->WE));
+	data->ceiling = 0xFF0000FF;
+	data->floor = 0xFFFFFFFF;
 }

@@ -132,10 +132,10 @@ int32_t main(void)
 		puts(mlx_strerror(mlx_errno));
 		return(EXIT_FAILURE);
 	}
-	parameters.NO = "./textures/Boccher.png";
-	parameters.SO = "./textures/Caitvi.png";
-	parameters.EA = "./textures/Hades.png";
-	parameters.WE = "./textures/ER.png";
+	parameters.NO = "./textures/Elevator_mod.png";
+	parameters.SO = "./textures/Room_mod.png";
+	parameters.EA = "./textures/School.png";
+	parameters.WE = "./textures/Sierpinski.png";
 	load_textures(&data, &parameters);
 	data.fov = 90;
 	data.px = 196;
@@ -143,8 +143,8 @@ int32_t main(void)
 	data.map_x = 32;
 	data.map_y = 32;
 	data.rad = deg_to_rad(270);
+	select_ray(&data);
 	mlx_loop_hook(data.mlx, movement, &data);
-	mlx_loop_hook(data.mlx, select_ray, &data);
 	mlx_loop_hook(data.mlx, draw_image, &data);
 	mlx_loop(data.mlx);
 	mlx_terminate(data.mlx);

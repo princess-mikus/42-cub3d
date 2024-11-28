@@ -6,7 +6,7 @@
 /*   By: fcasaubo <fcasaubo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/04 12:18:07 by fcasaubo          #+#    #+#             */
-/*   Updated: 2024/11/25 12:41:39 by fcasaubo         ###   ########.fr       */
+/*   Updated: 2024/11/28 13:03:02 by fcasaubo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,8 @@ char		map2[10][11] = {
 	{'1', '0', '0', '0', '0', '0', '0', '0', '0', '1', '\0'},
 	{'1', '0', '0', '0', '0', '0', '0', '0', '0', '1', '\0'},
 	{'1', '0', '0', '0', '0', '0', '0', '0', '0', '1', '\0'},
-	{'1', '0', '0', '0', '0', '0', '0', '0', '0', '1', '\0'},
-	{'1', '0', '0', '0', '0', '0', '0', '0', '0', '1', '\0'},
+	{'1', '0', '0', '0', '0', '1', '0', '0', '0', '1', '\0'},
+	{'1', '0', '0', '0', '1', '1', '1', '0', '0', '1', '\0'},
 	{'1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '\0'}
 };
 
@@ -44,7 +44,7 @@ void	west_ray(t_data *data, double rad, t_ray *ray)
 			ray->lenght = __DBL_MAX__;
 			return ;
 		}
-		if (map2[(int)ray->rayY / 64][(int)ray->rayX / 64 - 1] == '1')
+		if (map2[(int)ray->rayY / 64][(int)ray->rayX / 64] == '1')
 			break ;
 		else
 		{
@@ -188,10 +188,4 @@ void	select_ray(t_data *data)
 		data->ray[i].lenght = fabs(data->ray[i].lenght * cos(data->ray[i].angle - data->rad));
 		angle += deg_to_rad(data->fov / (double)WIDTH);
 	}
-	i = -1;
-	lmao = 1;
-	/*while (++i < 512) // < WIDTH)
-	{
-		//printf("%f = %f, [%f] [%f]\n", data->ray[i].angle, data->ray[i].lenght, data->ray[i].rayX, data->ray[i].rayY);
-	}*/
 }
