@@ -21,14 +21,18 @@
 #include <limits.h>
 #include <MLX42/MLX42.h>
 
+# define WIDTH 1920
+# define HEIGHT 1080
+
 typedef struct s_parameters
 {
 	int		fd;
 	char	**raw;
-	int		raw_heigth;
+	size_t	raw_heigth;
+	size_t	longest;
 	int		player_x;
 	int		player_y;
-	char	player_pos;
+	char	player_dir;
 	char	*NO;
 	char	*SO;
 	char	*WE;
@@ -36,11 +40,18 @@ typedef struct s_parameters
 	char	*C;
 	char	*F;
 	int		map_len;
-	int		map_heigth;
+	int		map_height;
 	char	*map_path;
 	char	*map_name;
 	char	**map;
 }			t_params;
+
+typedef struct s_ff_list
+{
+	int		x;
+	int		y;
+	void	*next;
+}	t_ff_list;
 
 typedef struct s_ray
 {
@@ -69,16 +80,17 @@ typedef struct s_textures
 
 
 typedef struct s_data {
-	t_ray		ray[2048]; // Replace with WIDTH macros
+	t_ray		ray[WIDTH];
 	t_textures	texture;
 	mlx_t		*mlx;
 	mlx_image_t	*img;
 	mlx_image_t	*viewpoint;
+	char		**map;
 	int			map_x;
 	int			map_y;
 	double		px;
 	double		py;
-	double		rad;
+	double		view_angle;
 	double		fov;
 	int			ceiling;
 	int			floor;

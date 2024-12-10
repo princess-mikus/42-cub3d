@@ -3,20 +3,27 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: fcasaubo <fcasaubo@student.42.fr>          +#+  +:+       +#+         #
+#    By: mikus <mikus@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/10/17 12:52:31 by fcasaubo          #+#    #+#              #
-#    Updated: 2024/11/27 11:12:46 by fcasaubo         ###   ########.fr        #
+#    Updated: 2024/12/10 19:15:21 by mikus            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME		:=	cub3d
 SRC_DIR		:=	src
-SRC			:=	main.c	 	\
-				movement.c	\
-				rays.c		\
-				image.c		\
-				textures.c
+SRC			:=	main.c	 		\
+				movement.c		\
+				rays.c			\
+				image.c			\
+				textures.c		\
+				init.c			\
+				utils.c			\
+				floodfill.c		\
+				floodfill_list.c\
+				parse_map.c		\
+				parse_file.c	\
+				parse_dump_map.c
 
 MLX_DIR		:=	mlx
 MLX			:=	$(MLX_DIR)/build/libmlx42.a -ldl -lglfw -pthread -lm

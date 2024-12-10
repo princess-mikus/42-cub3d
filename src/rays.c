@@ -3,27 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   rays.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fcasaubo <fcasaubo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mikus <mikus@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/04 12:18:07 by fcasaubo          #+#    #+#             */
-/*   Updated: 2024/11/28 13:03:02 by fcasaubo         ###   ########.fr       */
+/*   Updated: 2024/12/10 21:24:54 by mikus            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
-
-char		map2[10][11] = {
-	{'1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '\0'},
-	{'1', '0', '0', '0', '0', '0', '0', '0', '0', '1', '\0'},
-	{'1', '0', '0', '0', '0', '0', '0', '0', '0', '1', '\0'},
-	{'1', '0', '0', '0', '0', '0', '0', '0', '0', '1', '\0'},
-	{'1', '0', '0', '0', '0', '0', '0', '0', '0', '1', '\0'},
-	{'1', '0', '0', '0', '0', '0', '0', '0', '0', '1', '\0'},
-	{'1', '0', '0', '0', '0', '0', '0', '0', '0', '1', '\0'},
-	{'1', '0', '0', '0', '0', '1', '0', '0', '0', '1', '\0'},
-	{'1', '0', '0', '0', '1', '1', '1', '0', '0', '1', '\0'},
-	{'1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '\0'}
-};
 
 void	west_ray(t_data *data, double rad, t_ray *ray)
 {
@@ -37,14 +24,14 @@ void	west_ray(t_data *data, double rad, t_ray *ray)
 	ray->rayY = (data->px - ray->rayX) * -tan(rad) + data->py;
 	offX = -64;
 	offY = -offX * -tan(rad);
-	while (step < 10)
+	while (step < 100)
 	{
 		if (ray->rayY < 0 || ray->rayX < 0 || ray->rayY > data->map_y * 64 || ray->rayX > data->map_x * 64)
 		{
 			ray->lenght = __DBL_MAX__;
 			return ;
 		}
-		if (map2[(int)ray->rayY / 64][(int)ray->rayX / 64] == '1')
+		if (data->map[(int)ray->rayY / 64][(int)ray->rayX / 64] == '1')
 			break ;
 		else
 		{
@@ -69,14 +56,14 @@ void	east_ray(t_data *data, double rad, t_ray *ray)
 	ray->rayY = (data->px - ray->rayX) * -tan(rad) + data->py;
 	offX = 64;
 	offY = -offX * -tan(rad);
-	while (step < 10)
+	while (step < 100)
 	{
 		if (ray->rayY < 0 || ray->rayX < 0 || ray->rayY > data->map_y * 64 || ray->rayX > data->map_x * 64)
 		{
 			ray->lenght = __DBL_MAX__;
 			return ;
 		}
-		if (map2[(int)ray->rayY / 64][(int)ray->rayX / 64] == '1')
+		if (data->map[(int)ray->rayY / 64][(int)ray->rayX / 64] == '1')
 			break ;
 		else
 		{
@@ -101,14 +88,14 @@ void	south_ray(t_data *data, double rad, t_ray *ray)
 	ray->rayX = (data->py - ray->rayY) * -1 / tan(rad) + data->px;
 	offY = -64;
 	offX = -offY * (-1 / tan(rad));
-	while (step < 10)
+	while (step < 100)
 	{
 		if (ray->rayY < 0 || ray->rayX < 0 || ray->rayY > data->map_y * 64 || ray->rayX > data->map_x * 64)
 		{
 			ray->lenght = __DBL_MAX__;
 			return ;
 		}
-		if (map2[(int)ray->rayY / 64][(int)ray->rayX / 64] == '1')
+		if (data->map[(int)ray->rayY / 64][(int)ray->rayX / 64] == '1')
 			break ;
 		else
 		{
@@ -133,14 +120,14 @@ void	north_ray(t_data *data, double rad, t_ray *ray)
 	ray->rayX = (data->py - ray->rayY) * -1 / tan(rad) + data->px;
 	offY = 64;
 	offX = -offY * (-1 / tan(rad));
-	while (step < 10)
+	while (step < 100)
 	{
 		if (ray->rayY < 0 || ray->rayX < 0 || ray->rayY > data->map_y * 64 || ray->rayX > data->map_x * 64)
 		{
 			ray->lenght = __DBL_MAX__;
 			return ;
 		}
-		if (map2[(int)ray->rayY / 64][(int)ray->rayX / 64] == '1')
+		if (data->map[(int)ray->rayY / 64][(int)ray->rayX / 64] == '1')
 			break ;
 		else
 		{
@@ -159,17 +146,16 @@ void	select_ray(t_data *data)
 	t_ray	ray_h;
 	t_ray	ray_v;
 	int		i;
-	static int lmao = 0;
 
-	angle = data->rad - (deg_to_rad(data->fov) / 2);
+	angle = data->view_angle - data->fov / 2;
 	i = -1;
 	ray_h.type = 'h';
 	ray_v.type = 'v';
 	while (++i < WIDTH)
 	{
-		if (angle < 0)
+		if (angle <= 0)
 			angle += 2 * M_PI;
-		if (angle > 2 * M_PI)
+		if (angle >= 2 * M_PI)
 			angle -= 2 * M_PI;
 		ray_h.lenght = __DBL_MAX__;
 		ray_v.lenght = __DBL_MAX__;
@@ -185,7 +171,7 @@ void	select_ray(t_data *data)
 			data->ray[i] = ray_h;
 		else
 			data->ray[i] = ray_v;
-		data->ray[i].lenght = fabs(data->ray[i].lenght * cos(data->ray[i].angle - data->rad));
-		angle += deg_to_rad(data->fov / (double)WIDTH);
+		data->ray[i].lenght = fabs(data->ray[i].lenght * cos(data->ray[i].angle - data->view_angle));
+		angle += data->fov / (double)WIDTH;
 	}
 }

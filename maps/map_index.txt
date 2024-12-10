@@ -1,0 +1,31 @@
+PLAYABLE MAPS
+> valid map : the perfect example gived by 42
+> alien_egg : randome map shape
+> space : a dark room with space textures
+~backrooms
+ > default : a backrooms
+ > pools : a backrooms pool
+
+VALID MAPS
+- disorder : the path textures and colors are mixed and have spaces and tabs
+- double_spaces : have various spaces betwen walls in line
+- empty_lines : have some empty lines betwen paths
+- mixed_imputs : have paths and colors mixed
+- spaces_betwen : have spaces and tabs betwen identifiers and paths
+- text : have textures with letters, it can be readed
+
+ERROR MAPS
+- char_in_color : have chars on RGB value
+- disorder : the game map isn't the last element
+- empty : is an empty map
+- missing_value_rgb : a part of 3 rgb value is mmissing
+- no_path : has no path to textures
+- no_walls : has no walls
+- pata.cubta : wrong format with large type of format
+- rgv_values_exceed : exceed the RGB value higher than 255 on each value
+- spaces : has spaces inside map
+- startn't : has no starting position
+- wrong_attrb : has wrong characters in map
+- wrong_extension : has wrong extension format .cuv
+- wrong_texture : the texture aren't ".xpm" format
+- long_line : check if there is space or outlimit map around wallkable spaces

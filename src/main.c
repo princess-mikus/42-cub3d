@@ -5,147 +5,23 @@
 
 #include "cub3d.h"
 
-char		map[10][10] = {
-	{'1', '1', '1', '1', '1', '1', '1', '1', '1', '\0'},
-	{'1', '0', '0', '0', '0', '0', '0', '0', '1', '\0'},
-	{'1', '0', '0', '0', '0', '0', '0', '0', '1', '\0'},
-	{'1', '0', '0', '0', '0', '0', '0', '0', '1', '\0'},
-	{'1', '0', '0', '0', '0', '0', '0', '0', '1', '\0'},
-	{'1', '0', '0', '0', '0', '0', '0', '0', '1', '\0'},
-	{'1', '0', '0', '0', '0', '0', '0', '0', '1', '\0'},
-	{'1', '0', '0', '0', '0', '0', '0', '0', '1', '\0'},
-	{'1', '0', '0', '0', '0', '0', '0', '0', '1', '\0'},
-	{'1', '0', '0', '0', '1', '1', '1', '1', '1', '\0'}
-};
-
-double deg_to_rad(double deg)
-{
-	while (deg > 360)
-		deg /= 360;
-	return (deg * M_PI / 180);
-}
-
-mlx_image_t	*draw_small_cube_green(mlx_t *mlx)
-{
-	int x = -1;
-	int y = -1;
-	mlx_image_t *new_cube = mlx_new_image(mlx, 10, 10);
-
-	while (++y < 10)
-	{
-		while (++x < 10)
-		{
-			mlx_put_pixel(new_cube, x, y, 0x00FF00FF);
-		}
-		x = -1;
-	}
-	return (new_cube);
-}
-
-mlx_image_t	*draw_small_cube(mlx_t *mlx)
-{
-	int x = -1;
-	int y = -1;
-	mlx_image_t *new_cube = mlx_new_image(mlx, 10, 10);
-
-	while (++y < 10)
-	{
-		while (++x < 10)
-		{
-			mlx_put_pixel(new_cube, x, y, 0x800080FF);
-		}
-		x = -1;
-	}
-	return (new_cube);
-}
-
-void	ft_put_pixel(mlx_t *mlx, int x, int y)
-{
-	mlx_image_t *pixel = mlx_new_image(mlx, 4, 4);
-
-	mlx_put_pixel(pixel, 0, 0, 0x800080FF);
-	mlx_put_pixel(pixel, 1, 0, 0x800080FF);
-	mlx_put_pixel(pixel, 0, 1, 0x800080FF);
-	mlx_put_pixel(pixel, 1, 1, 0x800080FF);
-	mlx_image_to_window(mlx, pixel, x, y);
-}
-
-mlx_image_t	*draw_cube(mlx_t *mlx)
-{
-	int x = -1;
-	int y = -1;
-	mlx_image_t *new_cube = mlx_new_image(mlx, 64, 64);
-
-	while (++y < 64)
-	{
-		while (++x < 64)
-			mlx_put_pixel(new_cube, x, y, 0xFFFFFF);
-		x = -1;
-	}
-	return (new_cube);
-}
-
-void	draw_v_line(mlx_t *mlx, mlx_image_t *img, int x, int max_y)
-{
-	int y = -1;
-	mlx_image_t *pixel;
-
-	pixel = mlx_new_image(mlx, 1, max_y);
-	while (++y < max_y)
-	{
-		mlx_put_pixel(pixel, 0, y, 0xFFFFFF);
-	}
-	mlx_image_to_window(mlx, pixel, x, 0);
-}
-
-void	draw_h_line(mlx_t *mlx, mlx_image_t *img, int y, int max_x)
-{
-	int x = -1;
-	mlx_image_t *pixel;
-
-	pixel = mlx_new_image(mlx, max_x, 1);
-	while (++x < max_x)
-		mlx_put_pixel(pixel, x, 0, 0xFFFFFF);
-	mlx_image_to_window(mlx, pixel, 0, y);
-}
-
-int32_t main(void)
+int	main(int argc, char **argv)
 {
 	t_data		data;
-	t_params	parameters;
+	t_params	params;
 
-	// Gotta error check this stuff
-	if (!(data.mlx = mlx_init(WIDTH, HEIGHT, "MLX42", true)))
-	{
-		puts(mlx_strerror(mlx_errno));
-		return(EXIT_FAILURE);
-	}
-	if (!(data.img = mlx_new_image(data.mlx, HEIGHT, WIDTH)))
-	{
-		mlx_close_window(data.mlx);
-		puts(mlx_strerror(mlx_errno));
-		return(EXIT_FAILURE);
-	}
-	if (mlx_image_to_window(data.mlx, data.img, 0, 0) == -1)
-	{
-		mlx_close_window(data.mlx);
-		puts(mlx_strerror(mlx_errno));
-		return(EXIT_FAILURE);
-	}
-	parameters.NO = "./textures/Elevator_mod.png";
-	parameters.SO = "./textures/Room_mod.png";
-	parameters.EA = "./textures/School.png";
-	parameters.WE = "./textures/Sierpinski.png";
-	load_textures(&data, &parameters);
-	data.fov = 90;
-	data.px = 196;
-	data.py = 67;
-	data.map_x = 32;
-	data.map_y = 32;
-	data.rad = deg_to_rad(270);
+	if (argc != 2)
+		return (-1);
+	params.map_path = ft_strdup(argv[1]);
+	init_params(&params);
+	parse_map(&params);
+	data.mlx = mlx_init(WIDTH, HEIGHT, "cub3d", true);
+	init_data(&data, &params);
 	select_ray(&data);
+	draw_image(&data);
+	printf("%f\n", data.view_angle);
+	//mlx_loop_hook(data.mlx, draw_image, &data);
 	mlx_loop_hook(data.mlx, movement, &data);
-	mlx_loop_hook(data.mlx, draw_image, &data);
 	mlx_loop(data.mlx);
 	mlx_terminate(data.mlx);
 	return (EXIT_SUCCESS);

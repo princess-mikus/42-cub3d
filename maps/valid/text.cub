@@ -1,0 +1,13 @@
+NO ./texture/xpm/direction/TOP.xpm
+SO ./texture/xpm/direction/RIGH.xpm
+WE ./texture/xpm/direction/LEFT.xpm
+EA ./texture/xpm/direction/BACK.xpm
+
+C 0,255,255
+F 160,160,160
+
+11111111111111111111
+10000000000000000001
+100000000N0000000001
+10000000000000000001
+11111111111111111111

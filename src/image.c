@@ -34,19 +34,21 @@ void	draw_floor(t_data *data, int sky_size, int x)
 	}
 }
 
-void	draw_image(t_data *data)
+void	draw_image(void *structure)
 {
+	t_data	*data;
 	int	wall_size;
 	int	wall_diff;
 	int	sky_size;
 	int	y;
 	int	x;
 
+	data = structure;
 	wall_diff = 0;
 	x = -1;
 	mlx_delete_image(data->mlx, data->viewpoint);
 	data->viewpoint = mlx_new_image(data->mlx, WIDTH, HEIGHT);
-	while (++x < HEIGHT)
+	while (++x < WIDTH)
 	{
 		wall_size = (64 * HEIGHT) / data->ray[x].lenght / 2;
 		if (wall_size > HEIGHT)
