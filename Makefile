@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: mikus <mikus@student.42.fr>                +#+  +:+       +#+         #
+#    By: fcasaubo <fcasaubo@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/10/17 12:52:31 by fcasaubo          #+#    #+#              #
-#    Updated: 2024/12/10 19:15:21 by mikus            ###   ########.fr        #
+#    Updated: 2024/12/11 12:01:30 by fcasaubo         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,8 @@ NAME		:=	cub3d
 SRC_DIR		:=	src
 SRC			:=	main.c	 		\
 				movement.c		\
-				rays.c			\
+				select_rays.c	\
+				cast_rays.c		\
 				image.c			\
 				textures.c		\
 				init.c			\
@@ -23,6 +24,7 @@ SRC			:=	main.c	 		\
 				floodfill_list.c\
 				parse_map.c		\
 				parse_file.c	\
+				free.c			\
 				parse_dump_map.c
 
 MLX_DIR		:=	mlx

@@ -24,11 +24,13 @@ void	draw_image(void *structrure);
 void	load_textures(t_data *data, t_params *parameters);
 void	init_data(t_data *data, t_params *params);
 void	free_array(void **array);
+void	draw_textures(t_data *data, int x, int y);
 
-void	c3d_lstadd_back(t_ff_list **lst, t_ff_list *new);
-void	c3d_lstadd_front(t_ff_list **lst, t_ff_list *new);
+void		c3d_lstadd_back(t_ff_list **lst, t_ff_list *new);
+void		c3d_lstadd_front(t_ff_list **lst, t_ff_list *new);
 t_ff_list	*c3d_lstlast(t_ff_list *lst);
 t_ff_list	*c3d_lstnew(int y, int x);
+double		radian_to_circle(double angle);
 
 //------------------------------------------------------------------------------
 //			PARSE MAP

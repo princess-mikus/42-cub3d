@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   textures.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mikus <mikus@student.42.fr>                +#+  +:+       +#+        */
+/*   By: fcasaubo <fcasaubo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/26 11:36:56 by fcasaubo          #+#    #+#             */
-/*   Updated: 2024/12/10 19:43:36 by mikus            ###   ########.fr       */
+/*   Updated: 2024/12/11 11:31:10 by fcasaubo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,12 +31,13 @@ t_texture	texture_formatter(mlx_texture_t *texture)
 	while (y < texture->height)
 	{
 		new_texture.pixels[y] = malloc(texture->width * sizeof(int));
-		x = 0;
+		x = -1;
 		k = texture->width * 4 * y;
-		while (x < texture->width)
+		while (++x < texture->width)
 		{
-			new_texture.pixels[y][x] = to_rgba_hex(texture->pixels[k], texture->pixels[k + 1], texture->pixels[k + 2], texture->pixels[k + 3]);
-			x++;
+			new_texture.pixels[y][x] = \
+			to_rgba_hex(texture->pixels[k], texture->pixels[k + 1],
+					texture->pixels[k + 2], texture->pixels[k + 3]);
 			k += 4;
 		}
 		y++;

@@ -3,14 +3,23 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mikus <mikus@student.42.fr>                +#+  +:+       +#+        */
+/*   By: fcasaubo <fcasaubo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/10 13:31:00 by fcasaubo          #+#    #+#             */
-/*   Updated: 2024/12/10 19:14:49 by mikus            ###   ########.fr       */
+/*   Updated: 2024/12/11 12:00:26 by fcasaubo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
+
+double	radian_to_circle(double angle)
+{
+	if (angle <= 0)
+		angle += 2 * M_PI;
+	if (angle >= 2 * M_PI)
+		angle -= 2 * M_PI;
+	return (angle);
+}
 
 int	red_cross(t_params *params)
 {
@@ -18,15 +27,6 @@ int	red_cross(t_params *params)
 	exit(0);
 	return (0);
 }
-
-void	free_map(t_params *params)
-{
-	free(params->map_path);
-	free(params->map_name);
-	free_array((void **)params->raw);
-	free_array((void **)params->map);
-}
-
 
 void	error(char *message, t_params *params)
 {
@@ -37,19 +37,10 @@ void	error(char *message, t_params *params)
 	exit(0);
 }
 
-double deg_to_rad(double deg)
+double	deg_to_rad(double deg)
 {
-	while (deg > 360)
-		deg /= 360;
-	return (deg * M_PI / 180);
-}
+	int	rad;
 
-void	free_array(void **array)
-{
-	int	i;
-
-	i = -1;
-	while (array && array[++i])
-		free(array[i]);
-	free(array);
+	rad = deg * M_PI / 180;
+	return (radian_to_circle(rad));
 }

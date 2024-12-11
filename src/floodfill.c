@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   floodfill.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mikus <mikus@student.42.fr>                +#+  +:+       +#+        */
+/*   By: fcasaubo <fcasaubo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/10 13:03:13 by fcasaubo          #+#    #+#             */
-/*   Updated: 2024/12/10 19:39:47 by mikus            ###   ########.fr       */
+/*   Updated: 2024/12/11 10:57:53 by fcasaubo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,8 @@ bool	check_x(char **map, int x, int y, t_params *params)
 		return (false);
 	if (y <= 0 || (map[y - 1][x] != '1' && map[y - 1][x] != 'X'))
 		return (false);
-	if (x >= (int)params->longest || (map[y][x + 1] != '1' && map[y][x + 1] != 'X'))
+	if (x >= (int)params->longest || (map[y][x + 1] != '1'
+		&& map[y][x + 1] != 'X'))
 		return (false);
 	if (x <= 0 || (map[y][x - 1] != '1' && map[y][x - 1] != 'X'))
 		return (false);
@@ -47,7 +48,7 @@ bool	search_map(char **map, t_params *params)
 bool	in_list(t_ff_list *to_check, t_ff_list *current)
 {
 	bool	appears;
-	
+
 	appears = false;
 	while (current->next)
 	{
@@ -75,16 +76,17 @@ void	search_inner_floors(t_params *params, char **map, t_ff_list **positions)
 	if (map[y][x] == 'X' || in_list(to_check, *positions))
 	{
 		*positions = to_check->next;
-		free(to_check);
-		return ;
+		return (free(to_check));
 	}
 	if (x > 0 && map[y][x - 1] != '1' && map[y][x - 1] != 'X')
 		c3d_lstadd_back(positions, c3d_lstnew(y, x - 1));
-	if (x < (int)params->longest && map[y][x + 1] != '1' && map[y][x + 1] != 'X')
+	if (x < (int)params->longest && map[y][x + 1] != '1'
+		&& map[y][x + 1] != 'X')
 		c3d_lstadd_back(positions, c3d_lstnew(y, x + 1));
 	if (y > 0 && map[y - 1][x] != '1' && map[y - 1][x] != 'X')
 		c3d_lstadd_back(positions, c3d_lstnew(y - 1, x));
-	if (y < params->map_height - 1 && map[y + 1][x] != '1' && map[y + 1][x] != 'X')
+	if (y < params->map_height - 1 && map[y + 1][x] != '1'
+		&& map[y + 1][x] != 'X')
 		c3d_lstadd_back(positions, c3d_lstnew(y + 1, x));
 	map[y][x] = 'X';
 	*positions = to_check->next;
@@ -114,4 +116,3 @@ bool	is_closed(t_params *params)
 	free(positions);
 	return (retval);
 }
-

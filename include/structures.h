@@ -6,7 +6,7 @@
 /*   By: fcasaubo <fcasaubo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/25 13:39:38 by fcasaubo          #+#    #+#             */
-/*   Updated: 2024/11/28 13:32:17 by fcasaubo         ###   ########.fr       */
+/*   Updated: 2024/12/11 11:37:11 by fcasaubo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,6 +94,9 @@ typedef struct s_data {
 	double		fov;
 	int			ceiling;
 	int			floor;
+	int			sky_size;
+	int			wall_size;
+	int			wall_diff;
 }	t_data;
 
 #endif
