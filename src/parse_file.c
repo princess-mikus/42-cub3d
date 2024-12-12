@@ -3,24 +3,24 @@
 /*                                                        :::      ::::::::   */
 /*   parse_file.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mikus <mikus@student.42.fr>                +#+  +:+       +#+        */
+/*   By: aarranz- <aarranz-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/10 18:54:08 by mikus             #+#    #+#             */
-/*   Updated: 2024/12/10 19:23:14 by mikus            ###   ########.fr       */
+/*   Updated: 2024/12/12 11:40:12 by aarranz-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-char *take_path(char *str, int nbr)
+char	*take_path(char *str, int nbr)
 {
-	char *trimed;
+	char	*trimed;
 
 	trimed = ft_strtrim(str, " ");
 	free(str);
 	str = ft_strtrim(trimed + nbr, " \n");
 	free(trimed);
-	return(str);
+	return (str);
 }
 
 void	dump_info2(t_params *params)
@@ -30,16 +30,16 @@ void	dump_info2(t_params *params)
 
 	i = -1;
 	while (params->raw[++i])
+	{
+		j = -1;
+		while (params->raw[i][++j] != '\0')
 		{
-			j = -1;
-			while (params->raw[i][++j] != '\0')
-			{
-				if (params->raw[i][j] == 'C' && params->raw[i][j+1] == ' ')
-					params->C = take_path(ft_strdup(params->raw[i]), 1); 
-				else if(params->raw[i][j] == 'F' && params->raw[i][j+1] == ' ')
-					params->F = take_path(ft_strdup(params->raw[i]), 1);
-			}
+			if (params->raw[i][j] == 'C' && params->raw[i][j + 1] == ' ')
+				params->C = take_path(ft_strdup(params->raw[i]), 1);
+			else if (params->raw[i][j] == 'F' && params->raw[i][j + 1] == ' ')
+				params->F = take_path(ft_strdup(params->raw[i]), 1);
 		}
+	}
 }
 
 void	dump_info(t_params *params)
@@ -49,24 +49,24 @@ void	dump_info(t_params *params)
 
 	i = -1;
 	while (params->raw[++i])
+	{
+		j = -1;
+		while (params->raw[i][++j] != '\0')
 		{
-			j = -1;
-			while (params->raw[i][++j] != '\0')
-			{
-				if (params->raw[i][j] == 'N' && params->raw[i][j+1] == 'O'
-				&& params->raw[i][j+2] == ' ')
-					params->NO = take_path(ft_strdup(params->raw[i]), 2); 
-				else if(params->raw[i][j] == 'S' && params->raw[i][j+1] == 'O'
-				&& params->raw[i][j+2] == ' ')
-					params->SO = take_path(ft_strdup(params->raw[i]), 2);
-				else if(params->raw[i][j] == 'E' && params->raw[i][j+1] == 'A'
-				&& params->raw[i][j+2] == ' ')
-					params->EA = take_path(ft_strdup(params->raw[i]), 2);
-				else if(params->raw[i][j] == 'W' && params->raw[i][j+1] == 'E'
-				&& params->raw[i][j+2] == ' ')
-					params->WE = take_path(ft_strdup(params->raw[i]), 2);
-			}
+			if (params->raw[i][j] == 'N' && params->raw[i][j + 1] == 'O'
+			&& params->raw[i][j + 2] == ' ')
+				params->NO = take_path(ft_strdup(params->raw[i]), 2);
+			else if (params->raw[i][j] == 'S' && params->raw[i][j + 1] == 'O'
+			&& params->raw[i][j + 2] == ' ')
+				params->SO = take_path(ft_strdup(params->raw[i]), 2);
+			else if (params->raw[i][j] == 'E' && params->raw[i][j + 1] == 'A'
+			&& params->raw[i][j + 2] == ' ')
+				params->EA = take_path(ft_strdup(params->raw[i]), 2);
+			else if (params->raw[i][j] == 'W' && params->raw[i][j + 1] == 'E'
+			&& params->raw[i][j + 2] == ' ')
+				params->WE = take_path(ft_strdup(params->raw[i]), 2);
 		}
+	}
 }
 
 void	dump_raw(t_params *params)
@@ -90,7 +90,7 @@ void	dump_raw(t_params *params)
 	i = 0;
 	while (true)
 	{
-		params->raw[i] = get_next_line(fd);	
+		params->raw[i] = get_next_line(fd);
 		if (!params->raw[i])
 			break ;
 		i++;
