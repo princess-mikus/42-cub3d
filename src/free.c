@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fcasaubo <fcasaubo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aarranz- <aarranz-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/11 11:59:23 by fcasaubo          #+#    #+#             */
-/*   Updated: 2024/12/11 12:00:32 by fcasaubo         ###   ########.fr       */
+/*   Updated: 2024/12/12 13:07:29 by aarranz-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,12 @@ void	free_map(t_params *params)
 {
 	free(params->map_path);
 	free(params->map_name);
+	free(params->NO);
+	free(params->SO);
+	free(params->WE);
+	free(params->EA);
+	free(params->C);
+	free(params->F);
 	free_array((void **)params->raw);
 	free_array((void **)params->map);
 }

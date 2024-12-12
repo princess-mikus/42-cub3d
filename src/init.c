@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fcasaubo <fcasaubo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aarranz- <aarranz-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/11 10:58:42 by fcasaubo          #+#    #+#             */
-/*   Updated: 2024/12/11 10:58:44 by fcasaubo         ###   ########.fr       */
+/*   Updated: 2024/12/12 13:05:40 by aarranz-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ void	init_params(t_params *params)
 	params->raw_heigth = 0;
 	params->player_x = 0;
 	params->player_y = 0;
+	params->player_dir = 0;
 	params->NO = NULL;
 	params->SO = NULL;
 	params->WE = NULL;
