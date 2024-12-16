@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aarranz- <aarranz-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fcasaubo <fcasaubo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/11 10:58:42 by fcasaubo          #+#    #+#             */
-/*   Updated: 2024/12/12 13:05:40 by aarranz-         ###   ########.fr       */
+/*   Updated: 2024/12/16 11:51:01 by fcasaubo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,6 @@ void	init_params(t_params *params)
 	params->raw_heigth = 0;
 	params->player_x = 0;
 	params->player_y = 0;
-	params->player_dir = 0;
 	params->NO = NULL;
 	params->SO = NULL;
 	params->WE = NULL;
@@ -39,10 +38,10 @@ void	load_map(t_data *data, t_params *params)
 	int	x;
 
 	y = -1;
-	data->map = ft_calloc(params->map_height, sizeof(char *));
+	data->map = ft_calloc(params->map_height + 1, sizeof(char *));
 	while (params->map[++y])
 	{
-		data->map[y] = ft_calloc(params->longest, sizeof(char));
+		data->map[y] = ft_calloc(params->longest + 1, sizeof(char));
 		x = -1;
 		while (params->map[y][++x])
 			data->map[y][x] = params->map[y][x];
@@ -70,6 +69,5 @@ void	init_data(t_data *data, t_params *params)
 	data->px = params->player_x * 64;
 	data->py = params->player_y * 64;
 	data->map_x = params->longest;
-	ft_printf("%d\n", params->map_height - 3);
 	data->map_y = params->map_height - 2;
 }

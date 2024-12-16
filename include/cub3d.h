@@ -20,11 +20,16 @@
 void	movement(void *mlx);
 double	deg_to_rad(double deg);
 void	select_ray(t_data *data);
-void	draw_image(void *structrure);
+void	draw_image(t_data *data);
 void	load_textures(t_data *data, t_params *parameters);
 void	init_data(t_data *data, t_params *params);
 void	free_array(void **array);
 void	draw_textures(t_data *data, int x, int y);
+
+void	north_ray(t_data *data, double rad, t_ray *ray);
+void	south_ray(t_data *data, double rad, t_ray *ray);
+void	east_ray(t_data *data, double rad, t_ray *ray);
+void	west_ray(t_data *data, double rad, t_ray *ray);
 
 void		c3d_lstadd_back(t_ff_list **lst, t_ff_list *new);
 void		c3d_lstadd_front(t_ff_list **lst, t_ff_list *new);

@@ -6,7 +6,7 @@
 /*   By: fcasaubo <fcasaubo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/26 11:36:56 by fcasaubo          #+#    #+#             */
-/*   Updated: 2024/12/11 11:31:10 by fcasaubo         ###   ########.fr       */
+/*   Updated: 2024/12/16 11:55:15 by fcasaubo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,12 +25,12 @@ t_texture	texture_formatter(mlx_texture_t *texture)
 	t_texture	new_texture;
 
 	y = 0;
-	new_texture.pixels = malloc(texture->height * sizeof(int *));
+	new_texture.pixels = ft_calloc(texture->height, sizeof(int *));
 	new_texture.width = texture->width;
 	new_texture.height = texture->height;
 	while (y < texture->height)
 	{
-		new_texture.pixels[y] = malloc(texture->width * sizeof(int));
+		new_texture.pixels[y] = ft_calloc(texture->width, sizeof(int));
 		x = -1;
 		k = texture->width * 4 * y;
 		while (++x < texture->width)

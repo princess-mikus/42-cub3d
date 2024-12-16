@@ -6,7 +6,7 @@
 #    By: fcasaubo <fcasaubo@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/10/17 12:52:31 by fcasaubo          #+#    #+#              #
-#    Updated: 2024/12/11 12:01:30 by fcasaubo         ###   ########.fr        #
+#    Updated: 2024/12/16 11:16:42 by fcasaubo         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,10 +14,11 @@ NAME		:=	cub3d
 SRC_DIR		:=	src
 SRC			:=	main.c	 		\
 				movement.c		\
-				select_rays.c	\
 				cast_rays.c		\
-				image.c			\
+				select_rays.c	\
 				textures.c		\
+				draw_image.c	\
+				draw_textures.c	\
 				init.c			\
 				utils.c			\
 				floodfill.c		\

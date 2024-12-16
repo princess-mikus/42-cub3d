@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_dump_map.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aarranz- <aarranz-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fcasaubo <fcasaubo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/10 19:03:43 by mikus             #+#    #+#             */
-/*   Updated: 2024/12/12 11:54:50 by aarranz-         ###   ########.fr       */
+/*   Updated: 2024/12/16 11:50:41 by fcasaubo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,11 +22,11 @@ void	dump_map2(t_params *params, size_t k)
 	i = k - 1;
 	j = 0;
 	params->map_height = params->raw_heigth - i;
-	params->map = malloc(sizeof(char *) * (params->map_height + 1));
+	params->map = ft_calloc(sizeof(char *), (params->map_height + 1));
 	while (params->raw[++i])
 	{
 		player_position(params, params->raw[i], j, &player_found);
-		params->map[j] = malloc(sizeof(char) * (params->longest + 1));
+		params->map[j] = ft_calloc(sizeof(char), (params->longest + 1));
 		l = -1;
 		while (++l <= params->longest)
 		{
@@ -34,9 +34,8 @@ void	dump_map2(t_params *params, size_t k)
 			if (l <= ft_strlen(params->raw[i]) && params->raw[i][l] == '1')
 				params->map[j][l] = '1';
 		}
-		params->map[j++][l + 1] = '\0';
+		j++;
 	}
-	params->map[j] = NULL;
 	if (!player_found)
 		error("Less than one player! Empty map", params);
 }

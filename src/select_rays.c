@@ -6,7 +6,7 @@
 /*   By: fcasaubo <fcasaubo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/04 12:18:07 by fcasaubo          #+#    #+#             */
-/*   Updated: 2024/12/11 11:26:20 by fcasaubo         ###   ########.fr       */
+/*   Updated: 2024/12/12 12:42:53 by fcasaubo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ void	select_ray(t_data *data)
 	while (++i < WIDTH)
 	{
 		init_rays(&ray_h, &ray_v);
-		radian_to_circle(angle);
+		angle = radian_to_circle(angle);
 		ray_selector(data, angle, &ray_h, &ray_v);
 		if (ray_h.lenght < ray_v.lenght)
 			data->ray[i] = ray_h;

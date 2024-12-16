@@ -6,7 +6,7 @@
 /*   By: fcasaubo <fcasaubo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/11 11:47:55 by fcasaubo          #+#    #+#             */
-/*   Updated: 2024/12/11 11:55:42 by fcasaubo         ###   ########.fr       */
+/*   Updated: 2024/12/12 12:15:33 by fcasaubo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ void	draw_textures(t_data *data, int x, int y)
 	if (data->ray[x].type == 'h' && data->ray[x].angle > M_PI)
 		draw_north_texture(data, x, y);
 	else if (data->ray[x].type == 'h')
-		draw_north_texture(data, x, y);
+		draw_south_texture(data, x, y);
 	else if (data->ray[x].type == 'v'
 		&& data->ray[x].angle < NORTH || data->ray[x].angle > SOUTH)
 		draw_west_texture(data, x, y);

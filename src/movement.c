@@ -6,7 +6,7 @@
 /*   By: fcasaubo <fcasaubo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/25 13:37:54 by fcasaubo          #+#    #+#             */
-/*   Updated: 2024/12/11 12:02:15 by fcasaubo         ###   ########.fr       */
+/*   Updated: 2024/12/16 11:31:28 by fcasaubo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,11 @@ void	movement(void *mlx)
 	angle_o = data->view_angle;
 	move_player(data);
 	move_camera(data);
+	if (mlx_is_key_down(data->mlx, MLX_KEY_ESCAPE))
+	{
+		free_data(&data);
+		exit(0);
+	}
 	if (px_o != data->px || py_o != data->py || data->view_angle != angle_o)
 	{
 		select_ray(data);

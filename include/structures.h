@@ -6,7 +6,7 @@
 /*   By: fcasaubo <fcasaubo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/25 13:39:38 by fcasaubo          #+#    #+#             */
-/*   Updated: 2024/12/11 11:37:11 by fcasaubo         ###   ########.fr       */
+/*   Updated: 2024/12/16 11:05:30 by fcasaubo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,6 @@ typedef struct s_data {
 	t_ray		ray[WIDTH];
 	t_textures	texture;
 	mlx_t		*mlx;
-	mlx_image_t	*img;
 	mlx_image_t	*viewpoint;
 	char		**map;
 	int			map_x;

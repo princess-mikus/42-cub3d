@@ -6,7 +6,7 @@
 /*   By: fcasaubo <fcasaubo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/11 10:58:17 by fcasaubo          #+#    #+#             */
-/*   Updated: 2024/12/11 10:58:24 by fcasaubo         ###   ########.fr       */
+/*   Updated: 2024/12/16 11:15:23 by fcasaubo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,11 +24,11 @@ int	main(int argc, char **argv)
 	parse_map(&params);
 	data.mlx = mlx_init(WIDTH, HEIGHT, "cub3d", true);
 	init_data(&data, &params);
+	free_map(&params);
 	select_ray(&data);
 	draw_image(&data);
-	printf("%f\n", data.view_angle);
 	mlx_loop_hook(data.mlx, movement, &data);
 	mlx_loop(data.mlx);
-	mlx_terminate(data.mlx);
+	free_data(&data);
 	return (EXIT_SUCCESS);
 }
