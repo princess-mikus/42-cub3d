@@ -1,7 +1,7 @@
-NO ./textures/Sierpinski.png
-SO ./textures/ER.png
-WE ./textures/Caitvi.png
-EA ./textures/Boccher.png
+NO ./textures/wolfenstein/blue_brick.png
+SO ./textures/wolfenstein/red_brick.png
+WE ./textures/wolfenstein/metal.png
+EA ./textures/wolfenstein/stone.png
 
 C 0,255,255
 F 160,160,160

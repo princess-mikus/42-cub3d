@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fcasaubo <fcasaubo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mikus <mikus@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/11 10:58:42 by fcasaubo          #+#    #+#             */
-/*   Updated: 2024/12/17 13:04:17 by fcasaubo         ###   ########.fr       */
+/*   Updated: 2024/12/17 21:22:24 by mikus            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,7 @@ void	start_camera(t_data *data, t_params *params)
 
 void	init_data(t_data *data, t_params *params)
 {
+	data->mlx = NULL;
 	load_textures(data, params);
 	load_map(data, params);
 	start_camera(data, params);

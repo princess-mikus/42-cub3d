@@ -3,28 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   draw_textures.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fcasaubo <fcasaubo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mikus <mikus@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/11 11:47:55 by fcasaubo          #+#    #+#             */
-/*   Updated: 2024/12/17 12:35:44 by fcasaubo         ###   ########.fr       */
+/*   Updated: 2024/12/17 22:14:09 by mikus            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
 void	draw_north_texture(t_data *data, int x, int y)
-{
-	int	tx;
-	int	ty;
-
-	tx = data->ray[x].ray_x * data->texture.south.width / 64;
-	ty = ((y - data->sky_size + data->wall_diff / 2)
-			* data->texture.south.height) / (data->wall_size + data->wall_diff);
-	mlx_put_pixel(data->viewpoint, x, y,
-		data->texture.south.pixels[ty][tx % data->texture.south.width]);
-}
-
-void	draw_south_texture(t_data *data, int x, int y)
 {
 	int	tx;
 	int	ty;
@@ -36,6 +24,18 @@ void	draw_south_texture(t_data *data, int x, int y)
 		data->texture.north.pixels[ty][tx % data->texture.north.width]);
 }
 
+void	draw_south_texture(t_data *data, int x, int y)
+{
+	int	tx;
+	int	ty;
+
+	tx = data->ray[x].ray_x * data->texture.south.width / 64;
+	ty = ((y - data->sky_size + data->wall_diff / 2)
+			* data->texture.south.height) / (data->wall_size + data->wall_diff);
+	mlx_put_pixel(data->viewpoint, x, y,
+		data->texture.south.pixels[ty][(data->texture.south.width - tx) % data->texture.south.width]);
+}
+
 void	draw_west_texture(t_data *data, int x, int y)
 {
 	int	tx;
@@ -45,7 +45,7 @@ void	draw_west_texture(t_data *data, int x, int y)
 	ty = ((y - data->sky_size + data->wall_diff / 2)
 			* data->texture.west.height) / (data->wall_size + data->wall_diff);
 	mlx_put_pixel(data->viewpoint, x, y,
-		data->texture.west.pixels[ty][tx % data->texture.west.width]);
+		data->texture.west.pixels[ty][(data->texture.west.width - tx) % data->texture.west.width]);
 }
 
 void	draw_east_texture(t_data *data, int x, int y)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fcasaubo <fcasaubo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mikus <mikus@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/11 11:59:23 by fcasaubo          #+#    #+#             */
-/*   Updated: 2024/12/17 12:53:29 by fcasaubo         ###   ########.fr       */
+/*   Updated: 2024/12/17 20:53:56 by mikus            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,9 @@ void	free_data(t_data *data)
 	free_array((void **)data->texture.south.pixels);
 	free_array((void **)data->texture.east.pixels);
 	free_array((void **)data->texture.west.pixels);
-	mlx_delete_image(data->mlx, data->viewpoint);
-	mlx_terminate(data->mlx);
+	if (data->mlx)
+	{
+		mlx_delete_image(data->mlx, data->viewpoint);
+		mlx_terminate(data->mlx);	
+	}
 }

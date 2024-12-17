@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   textures.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fcasaubo <fcasaubo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mikus <mikus@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/26 11:36:56 by fcasaubo          #+#    #+#             */
-/*   Updated: 2024/12/17 13:09:23 by fcasaubo         ###   ########.fr       */
+/*   Updated: 2024/12/17 21:38:03 by mikus            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,12 +17,18 @@ int	to_rgba_hex(int red, int green, int blue, int alpha)
 	return (red << 24 | green << 16 | blue << 8 | alpha);
 }
 
-int	str_to_hex(char *str)
+int	str_to_hex(char *str, t_data *data, t_params *params)
 {
 	char	**splitted;
 	int		retval;
 
 	splitted = ft_split(str, ',');
+	if (arr_len(splitted) != 3)
+	{
+		free_array((void **)splitted);
+		free_data(data);
+		error("Wrong ceiling or floor color!", params);
+	}
 	retval = to_rgba_hex(ft_atoi(splitted[0]), ft_atoi(splitted[1]), ft_atoi(splitted[2]), 255);
 	free_array((void **)splitted);
 	return(retval);
@@ -74,14 +80,12 @@ void	load_textures(t_data *data, t_params *params)
 		free(south_texture);
 		free(east_texture);
 		free(west_texture);
-		mlx_terminate(data->mlx);
 		error("Texture not found!", params);
 	}
 	data->texture.north = texture_formatter(north_texture);
 	data->texture.south = texture_formatter(south_texture);
 	data->texture.east = texture_formatter(east_texture);
 	data->texture.west = texture_formatter(west_texture);
-	ft_printf("%s %s\n", params->c, params->f);
-	data->ceiling = str_to_hex(params->c);
-	data->floor = str_to_hex(params->f);
+	data->ceiling = str_to_hex(params->c, data, params);
+	data->floor = str_to_hex(params->f, data, params);
 }

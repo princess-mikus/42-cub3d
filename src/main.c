@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fcasaubo <fcasaubo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mikus <mikus@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/11 10:58:17 by fcasaubo          #+#    #+#             */
-/*   Updated: 2024/12/17 12:14:14 by fcasaubo         ###   ########.fr       */
+/*   Updated: 2024/12/17 21:22:12 by mikus            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,8 @@ int	main(int argc, char **argv)
 	params.map_path = ft_strdup(argv[1]);
 	init_params(&params);
 	parse_map(&params);
-	data.mlx = mlx_init(WIDTH, HEIGHT, "cub3d", true);
 	init_data(&data, &params);
+	data.mlx = mlx_init(WIDTH, HEIGHT, "cub3d", true);
 	free_map(&params);
 	select_ray(&data);
 	draw_image(&data);

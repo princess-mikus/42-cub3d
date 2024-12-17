@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cast_rays.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fcasaubo <fcasaubo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mikus <mikus@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/04 12:18:07 by fcasaubo          #+#    #+#             */
-/*   Updated: 2024/12/17 12:23:56 by fcasaubo         ###   ########.fr       */
+/*   Updated: 2024/12/17 21:28:59 by mikus            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	west_ray(t_data *data, double rad, t_ray *ray)
 	while (++step < 100)
 	{
 		if (ray->ray_y < 0 || ray->ray_x < 0
-			|| ray->ray_y > data->map_y * 64 || ray->ray_x > data->map_x * 64)
+			|| ray->ray_y > (data->map_y - 1) * 64 || ray->ray_x > (data->map_x - 1) * 64)
 		{
 			ray->lenght = __DBL_MAX__;
 			return ;
@@ -51,7 +51,7 @@ void	east_ray(t_data *data, double rad, t_ray *ray)
 	while (++step < 100)
 	{
 		if (ray->ray_y < 0 || ray->ray_x < 0
-			|| ray->ray_y > data->map_y * 64 || ray->ray_x > data->map_x * 64)
+			|| ray->ray_y > (data->map_y - 1) * 64 || ray->ray_x > (data->map_x - 1) * 64)
 		{
 			ray->lenght = __DBL_MAX__;
 			return ;
@@ -79,7 +79,7 @@ void	south_ray(t_data *data, double rad, t_ray *ray)
 	while (++step < 100)
 	{
 		if (ray->ray_y < 0 || ray->ray_x < 0
-			|| ray->ray_y > data->map_y * 64 || ray->ray_x > data->map_x * 64)
+			|| ray->ray_y > (data->map_y - 1) * 64 || ray->ray_x > (data->map_x - 1) * 64)
 		{
 			ray->lenght = __DBL_MAX__;
 			return ;
@@ -107,7 +107,7 @@ void	north_ray(t_data *data, double rad, t_ray *ray)
 	while (++step < 100)
 	{
 		if (ray->ray_y < 0 || ray->ray_x < 0
-			|| ray->ray_y > data->map_y * 64 || ray->ray_x > data->map_x * 64)
+			|| ray->ray_y > (data->map_y - 1) * 64 || ray->ray_x > (data->map_x - 1) * 64)
 		{
 			ray->lenght = __DBL_MAX__;
 			return ;

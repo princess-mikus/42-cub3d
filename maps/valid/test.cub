@@ -1,6 +1,6 @@
 NO ./textures/Sierpinski.png
 SO ./textures/ER.png
-WE ./textures/Caitvi.png
+WE ./textures/Caitvi_good.png
 EA ./textures/Boccher.png
 
 C 255,255,255

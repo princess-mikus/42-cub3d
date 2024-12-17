@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fcasaubo <fcasaubo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mikus <mikus@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/17 12:25:37 by fcasaubo          #+#    #+#             */
-/*   Updated: 2024/12/17 12:34:25 by fcasaubo         ###   ########.fr       */
+/*   Updated: 2024/12/17 22:19:47 by mikus            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@
 # include "structures.h"
 # include "libft.h"
 
-# define FOV 90
+# define FOV 60
 
 # define NORTH 1.5708
 # define EAST 3.14159
@@ -48,6 +48,7 @@ void	c3d_lstadd_front(t_fflst **lst, t_fflst *new);
 t_fflst	*c3d_lstlast(t_fflst *lst);
 t_fflst	*c3d_lstnew(int y, int x);
 double	radian_to_circle(double angle);
+int		arr_len(char **array);
 
 //------------------------------------------------------------------------------
 //			PARSE MAP
