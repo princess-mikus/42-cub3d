@@ -3,20 +3,20 @@
 /*                                                        :::      ::::::::   */
 /*   floodfill_list.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mikus <mikus@student.42.fr>                +#+  +:+       +#+        */
+/*   By: fcasaubo <fcasaubo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/10 18:53:43 by mikus             #+#    #+#             */
-/*   Updated: 2024/12/10 18:53:45 by mikus            ###   ########.fr       */
+/*   Updated: 2024/12/17 12:33:08 by fcasaubo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-t_ff_list	*c3d_lstnew(int y, int x)
+t_fflst	*c3d_lstnew(int y, int x)
 {
-	t_ff_list	*node;
+	t_fflst	*node;
 
-	node = (t_ff_list *)malloc(sizeof(t_ff_list));
+	node = (t_fflst *)malloc(sizeof(t_fflst));
 	if (node == NULL)
 		return (NULL);
 	node->x = x;
@@ -25,7 +25,7 @@ t_ff_list	*c3d_lstnew(int y, int x)
 	return (node);
 }
 
-void	c3d_lstadd_front(t_ff_list **lst, t_ff_list *new)
+void	c3d_lstadd_front(t_fflst **lst, t_fflst *new)
 {
 	if (lst)
 	{
@@ -34,7 +34,7 @@ void	c3d_lstadd_front(t_ff_list **lst, t_ff_list *new)
 	}
 }
 
-t_ff_list	*c3d_lstlast(t_ff_list *lst)
+t_fflst	*c3d_lstlast(t_fflst *lst)
 {
 	if (!lst)
 		return (NULL);
@@ -43,9 +43,9 @@ t_ff_list	*c3d_lstlast(t_ff_list *lst)
 	return (lst);
 }
 
-void	c3d_lstadd_back(t_ff_list **lst, t_ff_list *new)
+void	c3d_lstadd_back(t_fflst **lst, t_fflst *new)
 {
-	t_ff_list	*node;
+	t_fflst	*node;
 
 	node = c3d_lstlast(*lst);
 	if (node)

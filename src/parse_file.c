@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_file.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aarranz- <aarranz-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fcasaubo <fcasaubo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/10 18:54:08 by mikus             #+#    #+#             */
-/*   Updated: 2024/12/12 11:40:12 by aarranz-         ###   ########.fr       */
+/*   Updated: 2024/12/17 12:22:48 by fcasaubo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,9 +35,9 @@ void	dump_info2(t_params *params)
 		while (params->raw[i][++j] != '\0')
 		{
 			if (params->raw[i][j] == 'C' && params->raw[i][j + 1] == ' ')
-				params->C = take_path(ft_strdup(params->raw[i]), 1);
+				params->c = take_path(ft_strdup(params->raw[i]), 1);
 			else if (params->raw[i][j] == 'F' && params->raw[i][j + 1] == ' ')
-				params->F = take_path(ft_strdup(params->raw[i]), 1);
+				params->f = take_path(ft_strdup(params->raw[i]), 1);
 		}
 	}
 }
@@ -55,16 +55,16 @@ void	dump_info(t_params *params)
 		{
 			if (params->raw[i][j] == 'N' && params->raw[i][j + 1] == 'O'
 			&& params->raw[i][j + 2] == ' ')
-				params->NO = take_path(ft_strdup(params->raw[i]), 2);
+				params->no = take_path(ft_strdup(params->raw[i]), 2);
 			else if (params->raw[i][j] == 'S' && params->raw[i][j + 1] == 'O'
 			&& params->raw[i][j + 2] == ' ')
-				params->SO = take_path(ft_strdup(params->raw[i]), 2);
+				params->so = take_path(ft_strdup(params->raw[i]), 2);
 			else if (params->raw[i][j] == 'E' && params->raw[i][j + 1] == 'A'
 			&& params->raw[i][j + 2] == ' ')
-				params->EA = take_path(ft_strdup(params->raw[i]), 2);
+				params->ea = take_path(ft_strdup(params->raw[i]), 2);
 			else if (params->raw[i][j] == 'W' && params->raw[i][j + 1] == 'E'
 			&& params->raw[i][j + 2] == ' ')
-				params->WE = take_path(ft_strdup(params->raw[i]), 2);
+				params->we = take_path(ft_strdup(params->raw[i]), 2);
 		}
 	}
 }
@@ -82,6 +82,7 @@ void	dump_raw(t_params *params)
 		result = get_next_line(fd);
 		if (!result)
 			break ;
+		free(result);
 		params->raw_heigth++;
 	}
 	params->raw = malloc(sizeof(char *) * params->raw_heigth + 1);

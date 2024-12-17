@@ -6,7 +6,7 @@
 /*   By: fcasaubo <fcasaubo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/11 10:58:42 by fcasaubo          #+#    #+#             */
-/*   Updated: 2024/12/16 11:51:01 by fcasaubo         ###   ########.fr       */
+/*   Updated: 2024/12/17 13:04:17 by fcasaubo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,12 +20,12 @@ void	init_params(t_params *params)
 	params->raw_heigth = 0;
 	params->player_x = 0;
 	params->player_y = 0;
-	params->NO = NULL;
-	params->SO = NULL;
-	params->WE = NULL;
-	params->EA = NULL;
-	params->C = NULL;
-	params->F = NULL;
+	params->no = NULL;
+	params->so = NULL;
+	params->we = NULL;
+	params->ea = NULL;
+	params->c = NULL;
+	params->f = NULL;
 	params->map_len = 0;
 	params->map_height = 0;
 	params->map_name = NULL;
@@ -35,17 +35,11 @@ void	init_params(t_params *params)
 void	load_map(t_data *data, t_params *params)
 {
 	int	y;
-	int	x;
 
 	y = -1;
 	data->map = ft_calloc(params->map_height + 1, sizeof(char *));
 	while (params->map[++y])
-	{
-		data->map[y] = ft_calloc(params->longest + 1, sizeof(char));
-		x = -1;
-		while (params->map[y][++x])
-			data->map[y][x] = params->map[y][x];
-	}
+		data->map[y] = ft_strdup(params->map[y]);
 }
 
 void	start_camera(t_data *data, t_params *params)
@@ -69,5 +63,5 @@ void	init_data(t_data *data, t_params *params)
 	data->px = params->player_x * 64;
 	data->py = params->player_y * 64;
 	data->map_x = params->longest;
-	data->map_y = params->map_height - 2;
+	data->map_y = params->map_height - 1;
 }

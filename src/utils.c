@@ -6,11 +6,24 @@
 /*   By: fcasaubo <fcasaubo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/10 13:31:00 by fcasaubo          #+#    #+#             */
-/*   Updated: 2024/12/11 12:00:26 by fcasaubo         ###   ########.fr       */
+/*   Updated: 2024/12/17 13:25:51 by fcasaubo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
+
+int		arr_len(char **array)
+{
+	int i;
+	int	retval;
+	
+	i = -1;
+	retval = 0;
+	while (array[++i])
+	{
+		retval++;
+	}
+}
 
 double	radian_to_circle(double angle)
 {

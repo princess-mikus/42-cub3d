@@ -3,8 +3,8 @@ SO ./textures/ER.png
 WE ./textures/Caitvi.png
 EA ./textures/Boccher.png
 
-C 0,255,255
-F 160,160,160
+C 255,255,255
+F 299,280,128
 
 11111111111111111111
 10000000000000000001

@@ -6,7 +6,7 @@
 /*   By: fcasaubo <fcasaubo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/10 19:03:43 by mikus             #+#    #+#             */
-/*   Updated: 2024/12/16 11:50:41 by fcasaubo         ###   ########.fr       */
+/*   Updated: 2024/12/17 12:12:15 by fcasaubo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,11 +19,11 @@ void	dump_map2(t_params *params, size_t k)
 	size_t	l;
 	bool	player_found;
 
-	i = k - 1;
+	i = k;
 	j = 0;
-	params->map_height = params->raw_heigth - i;
+	params->map_height = params->raw_heigth - i + 1;
 	params->map = ft_calloc(sizeof(char *), (params->map_height + 1));
-	while (params->raw[++i])
+	while (params->raw[i])
 	{
 		player_position(params, params->raw[i], j, &player_found);
 		params->map[j] = ft_calloc(sizeof(char), (params->longest + 1));
@@ -34,6 +34,7 @@ void	dump_map2(t_params *params, size_t k)
 			if (l <= ft_strlen(params->raw[i]) && params->raw[i][l] == '1')
 				params->map[j][l] = '1';
 		}
+		i++;
 		j++;
 	}
 	if (!player_found)

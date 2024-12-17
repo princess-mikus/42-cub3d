@@ -6,7 +6,7 @@
 /*   By: fcasaubo <fcasaubo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/10 13:03:13 by fcasaubo          #+#    #+#             */
-/*   Updated: 2024/12/11 10:57:53 by fcasaubo         ###   ########.fr       */
+/*   Updated: 2024/12/17 12:33:08 by fcasaubo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ bool	search_map(char **map, t_params *params)
 	return (true);
 }
 
-bool	in_list(t_ff_list *to_check, t_ff_list *current)
+bool	in_list(t_fflst *to_check, t_fflst *current)
 {
 	bool	appears;
 
@@ -64,11 +64,11 @@ bool	in_list(t_ff_list *to_check, t_ff_list *current)
 	return (false);
 }
 
-void	search_inner_floors(t_params *params, char **map, t_ff_list **positions)
+void	search_inner_floors(t_params *params, char **map, t_fflst **positions)
 {
 	int			x;
 	int			y;
-	t_ff_list	*to_check;
+	t_fflst	*to_check;
 
 	to_check = *positions;
 	x = to_check->x;
@@ -95,7 +95,7 @@ void	search_inner_floors(t_params *params, char **map, t_ff_list **positions)
 
 bool	is_closed(t_params *params)
 {
-	t_ff_list	*positions;
+	t_fflst	*positions;
 	char		**map_cpy;
 	int			i;
 	bool		retval;
