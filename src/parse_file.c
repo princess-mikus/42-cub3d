@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_file.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fcasaubo <fcasaubo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aarranz- <aarranz-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/10 18:54:08 by mikus             #+#    #+#             */
-/*   Updated: 2024/12/17 12:22:48 by fcasaubo         ###   ########.fr       */
+/*   Updated: 2024/12/18 12:48:37 by aarranz-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,7 +102,7 @@ void	file_check(t_params *params)
 {
 	char	*res;
 
-	params->map_name = ft_strdup(ft_strrchr(params->map_path, '/') + 1);
+	params->map_name = ft_strdup(params->map_path);
 	if ((ft_strlen(params->map_name) <= 4)
 		|| ((params->map_name[ft_strlen(params->map_name) - 1] != 'b')
 			|| (params->map_name[ft_strlen(params->map_name) - 2] != 'u')
