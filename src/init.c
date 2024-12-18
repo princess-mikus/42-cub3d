@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mikus <mikus@student.42.fr>                +#+  +:+       +#+        */
+/*   By: fcasaubo <fcasaubo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/11 10:58:42 by fcasaubo          #+#    #+#             */
-/*   Updated: 2024/12/17 21:22:24 by mikus            ###   ########.fr       */
+/*   Updated: 2024/12/18 17:48:41 by fcasaubo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,12 +57,17 @@ void	start_camera(t_data *data, t_params *params)
 void	init_data(t_data *data, t_params *params)
 {
 	data->mlx = NULL;
+	data->texture.north.pixels = NULL;
+	data->texture.south.pixels = NULL;
+	data->texture.east.pixels = NULL;
+	data->texture.west.pixels = NULL;
+	data->map = NULL;
 	load_textures(data, params);
 	load_map(data, params);
 	start_camera(data, params);
 	data->fov = deg_to_rad(FOV);
-	data->px = params->player_x * 64;
-	data->py = params->player_y * 64;
+	data->px = params->player_x * 64 + 32;
+	data->py = params->player_y * 64 + 32;
 	data->map_x = params->longest;
-	data->map_y = params->map_height - 1;
+	data->map_y = params->map_height;
 }

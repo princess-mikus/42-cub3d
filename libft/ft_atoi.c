@@ -3,53 +3,54 @@
 /*                                                        :::      ::::::::   */
 /*   ft_atoi.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: xortega <xortega@student.42.fr>            +#+  +:+       +#+        */
+/*   By: fcasaubo <fcasaubo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/04/20 15:56:50 by xortega           #+#    #+#             */
-/*   Updated: 2024/04/03 12:44:02 by xortega          ###   ########.fr       */
+/*   Created: 2023/04/20 12:11:44 by fcasaubo          #+#    #+#             */
+/*   Updated: 2023/05/15 11:37:54 by fcasaubo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static int	ft_minus(const char *s, int x)
+static int	ft_start(const char *str)
 {
-	if (s[x] == '-' && (s[x + 1] >= '0' && s[x + 1] <= '9'))
-		return (-1);
-	if (s[x] == '+' && (s[x + 1] >= '0' && s[x + 1] <= '9'))
-		return (1);
-	if ((s[x] < '0' || s[x] > '9'))
-		return (0);
-	if (s[0] == '0' && s[1] == ' ')
-		return (0);
-	return (1);
+	int	i;
+
+	i = 0;
+	while ((str[i] <= '\0' && str[i] >= '\10') || str[i] == ' ' || \
+	str[i] == '\t' || str[i] == '\n' || str[i] == '\v' || \
+	str[i] == '\f' || str[i] == '\r')
+		i++;
+	if (str[i] == '+' && str[i + 1] != '-')
+		i++;
+	return (i);
 }
 
 int	ft_atoi(const char *str)
 {
-	int	j;
-	int	c;
-	int	x;
+	int	i;
+	int	num;
+	int	neg;
 
-	x = 0;
-	j = -1;
-	c = 0;
-	while ((str[++j] <= '\0' && str[j] >= '\10') || str[j] == ' ' || \
-	str[j] == '\t' || str[j] == '\n' || str[j] == '\v' || \
-	str[j] == '\f' || str[j] == '\r')
-		x++;
-	while (str[j])
+	neg = 1;
+	i = ft_start(str);
+	num = 0;
+	if (str[i++] == '-')
+		neg *= -1;
+	else
+		i--;
+	while (str[i])
 	{
-		if (str[j] >= '0' && str[j] <= '9')
+		if ((str[i] > 32 && str[i] < 48) || (unsigned char)str[i] > 57)
+			return (num * neg);
+		else if (str[i] <= 32)
 		{
-			if (str[j + 1] >= '0' && str[j + 1] <= '9')
-				c = (c * 10) + ((str[j] - 48) * 10);
-			else
-				c += (str[j] - 48);
-		}
-		if ((str[j + 1] > '9' || str[j + 1] < '0') && c != 0)
+			i++;
 			break ;
-		j++;
+		}
+		num += (str[i] - 48);
+		if (str[++i] >= 48 && str[i] <= 57)
+			num = num * 10;
 	}
-	return (c * ft_minus(str, x));
+	return (num * neg);
 }

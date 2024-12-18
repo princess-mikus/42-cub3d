@@ -1,28 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstadd_back.c                                   :+:      :+:    :+:   */
+/*   ft_write_string.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: xortega <xortega@student.42.fr>            +#+  +:+       +#+        */
+/*   By: fcasaubo <fcasaubo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/10 12:59:59 by xortega           #+#    #+#             */
-/*   Updated: 2024/04/04 15:42:00 by xortega          ###   ########.fr       */
+/*   Created: 2023/06/06 11:49:05 by fcasaubo          #+#    #+#             */
+/*   Updated: 2023/06/19 11:22:20 by fcasaubo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "ft_printf.h"
 
-void	ft_lstadd_back(t_list **lst, t_list *new)
+int	ft_write_string(va_list lst)
 {
-	t_list	*node;
+	char		*last;
 
-	if (!lst || !new)
-		return ;
-	node = ft_lstlast(*lst);
-	if (node)
-	{
-		node -> next = new;
-	}
-	else
-		ft_lstadd_front(lst, new);
+	last = va_arg(lst, char *);
+	if (last == NULL)
+		return (write(1, "(null)", 6));
+	return (write(1, last, ft_strlen(last)));
 }

@@ -1,32 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strlcat.c                                       :+:      :+:    :+:   */
+/*   ft_write_address.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fcasaubo <fcasaubo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/11 10:53:20 by fcasaubo          #+#    #+#             */
-/*   Updated: 2023/05/11 10:53:30 by fcasaubo         ###   ########.fr       */
+/*   Created: 2023/06/06 12:23:17 by fcasaubo          #+#    #+#             */
+/*   Updated: 2023/06/19 11:44:09 by fcasaubo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "ft_printf.h"
 
-size_t	ft_strlcat(char *dst, const char *src, size_t dstsize)
+int	ft_write_address(va_list lst)
 {
-	size_t	i;
-	size_t	dlen;
-	size_t	slen;
+	void	*ptr;
+	int		count;
+	int		errors;
 
-	i = -1;
-	if (dstsize == 0 && (!dst || !src))
-		return (0);
-	dlen = ft_strlen(dst);
-	slen = ft_strlen(src);
-	if (dstsize <= dlen)
-		return (ft_strlen(src) + dstsize);
-	while (++i < (dstsize - dlen - 1) && src[i])
-		dst[dlen + i] = src[i];
-	dst[dlen + i] = '\0';
-	return (dlen + slen);
+	ptr = va_arg(lst, void *);
+	count = (int)write(1, "0x", 2);
+	if (count == -1)
+		return (-1);
+	errors = ft_putaddress_fd((unsigned long)ptr, 1);
+	if (errors == -1)
+		return (-1);
+	return (errors + count);
 }

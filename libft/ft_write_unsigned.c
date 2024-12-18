@@ -1,20 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstdelone.c                                     :+:      :+:    :+:   */
+/*   ft_write_unsigned.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: xortega <xortega@student.42.fr>            +#+  +:+       +#+        */
+/*   By: fcasaubo <fcasaubo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/10 14:17:50 by xortega           #+#    #+#             */
-/*   Updated: 2024/04/03 12:44:02 by xortega          ###   ########.fr       */
+/*   Created: 2023/06/06 12:00:11 by fcasaubo          #+#    #+#             */
+/*   Updated: 2023/06/27 11:27:31 by fcasaubo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "ft_printf.h"
 
-void	ft_lstdelone(t_list *lst, void (*del)(void*))
+int	ft_write_unsigned(va_list lst)
 {
-	if (del && lst -> content)
-		del(lst -> content);
-	free(lst);
+	int	number;
+
+	number = va_arg(lst, unsigned int);
+	return (ft_putnbru_fd(number, 1));
 }

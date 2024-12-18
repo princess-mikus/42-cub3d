@@ -6,7 +6,7 @@
 #    By: fcasaubo <fcasaubo@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/10/17 12:52:31 by fcasaubo          #+#    #+#              #
-#    Updated: 2024/12/16 11:16:42 by fcasaubo         ###   ########.fr        #
+#    Updated: 2024/12/18 18:28:42 by fcasaubo         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,6 +26,7 @@ SRC			:=	main.c	 		\
 				parse_map.c		\
 				parse_file.c	\
 				free.c			\
+				parse_info.c	\
 				parse_dump_map.c
 
 MLX_DIR		:=	mlx
@@ -39,7 +40,7 @@ OBJ_DIR	:=	obj
 OBJ		:=	$(SRC:%.c=$(OBJ_DIR)/%.o)
 
 CC		:=	gcc
-CCFLAGS	:=	# -Wall -Wextra -Werror
+CCFLAGS	:=	-Wall -Wextra -Werror
 
 all: $(MLX) $(NAME)
 

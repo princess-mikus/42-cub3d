@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_calloc.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: xortega <xortega@student.42.fr>            +#+  +:+       +#+        */
+/*   By: fcasaubo <fcasaubo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/04/21 10:33:57 by xortega           #+#    #+#             */
-/*   Updated: 2024/04/03 12:44:02 by xortega          ###   ########.fr       */
+/*   Created: 2023/04/21 10:25:16 by fcasaubo          #+#    #+#             */
+/*   Updated: 2023/05/10 15:32:30 by fcasaubo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,13 @@
 
 void	*ft_calloc(size_t count, size_t size)
 {
-	void	*str;
+	void	*s;
 
-	if (count == 2147483647 || size == 2147483647)
+	if (count == SIZE_MAX || size == SIZE_MAX)
 		return (NULL);
-	str = malloc(count * size);
-	if (str == NULL)
+	s = malloc(count * size);
+	if (s == NULL)
 		return (NULL);
-	if (count == 0)
-		return (str);
-	return (ft_memset(str, '\0', (count * size)));
+	else
+		return (ft_memset(s, 0, count * size));
 }

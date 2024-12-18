@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   movement.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mikus <mikus@student.42.fr>                +#+  +:+       +#+        */
+/*   By: fcasaubo <fcasaubo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/25 13:37:54 by fcasaubo          #+#    #+#             */
-/*   Updated: 2024/12/17 21:15:13 by mikus            ###   ########.fr       */
+/*   Updated: 2024/12/18 18:33:12 by fcasaubo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,28 +28,33 @@ void	move_camera(t_data	*data)
 	}
 }
 
+void	check_movement(t_data *data, double delta_x, double delta_y)
+{
+	int	new_x;
+	int	new_y;
+
+	new_x = (data->px + delta_x) / 64;
+	new_y = (data->py + delta_y) / 64;
+	if (data->map[(int)(data->py / 64)][new_x] != '1')
+		data->px += delta_x;
+	if (data->map[new_y][(int)(data->px / 64)] != '1')
+		data->py += delta_y;
+}
+
 void	move_player(t_data	*data)
 {
 	if (mlx_is_key_down(data->mlx, MLX_KEY_W))
-	{
-		data->px -= cos(data->view_angle);
-		data->py -= sin(data->view_angle);
-	}
+		check_movement(data, -cos(data->view_angle) * 2,
+			-sin(data->view_angle) * 2);
 	if (mlx_is_key_down(data->mlx, MLX_KEY_S))
-	{
-		data->px += cos(data->view_angle);
-		data->py += sin(data->view_angle);
-	}
+		check_movement(data, cos(data->view_angle) * 2,
+			sin(data->view_angle) * 2);
 	if (mlx_is_key_down(data->mlx, MLX_KEY_A))
-	{
-		data->px += cos(data->view_angle + (M_PI / 2));
-		data->py += sin(data->view_angle + (M_PI / 2));
-	}
+		check_movement(data, cos(data->view_angle + (M_PI / 2)) * 2,
+			sin(data->view_angle + (M_PI / 2)) * 2);
 	if (mlx_is_key_down(data->mlx, MLX_KEY_D))
-	{
-		data->px -= cos(data->view_angle + (M_PI / 2));
-		data->py -= sin(data->view_angle + (M_PI / 2));
-	}
+		check_movement(data, -cos(data->view_angle + (M_PI / 2)) * 2,
+			-sin(data->view_angle + (M_PI / 2)) * 2);
 }
 
 void	movement(void *mlx)
@@ -68,7 +73,7 @@ void	movement(void *mlx)
 	if (mlx_is_key_down(data->mlx, MLX_KEY_ESCAPE))
 	{
 		free_data(data);
-		exit(0);
+		exit(EXIT_FAILURE);
 	}
 	if (px_o != data->px || py_o != data->py || data->view_angle != angle_o)
 	{

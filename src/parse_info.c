@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_info.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aarranz- <aarranz-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fcasaubo <fcasaubo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/18 16:16:35 by aarranz-          #+#    #+#             */
-/*   Updated: 2024/12/18 17:49:57 by aarranz-         ###   ########.fr       */
+/*   Updated: 2024/12/18 18:32:26 by fcasaubo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,19 +16,22 @@ void	parse_info(t_params *params, int info_height)
 {
 	int		i;
 	char	*trimmed;
-	
+
 	i = 0;
-	while(params->raw[i] && i < info_height)
+	while (params->raw[i] && i < info_height)
 	{
 		trimmed = ft_strtrim(params->raw[i], " \t\n");
 		if (trimmed && ft_strlen(trimmed) >= 3)
 		{
 			if (!(trimmed[0] == 'N' && trimmed[1] == 'O' && trimmed[2] == ' ')
-			&& !(trimmed[0] == 'S' && trimmed[1] == 'O' && trimmed[2] == ' ')
-			&& !(trimmed[0] == 'E' && trimmed[1] == 'A' && trimmed[2] == ' ')
-			&& !(trimmed[0] == 'W' && trimmed[1] == 'E' && trimmed[2] == ' ')
-			&& !(trimmed[0] == 'F' && trimmed[1] == ' ')
-			&& !(trimmed[0] == 'C' && trimmed[1] == ' '))
+				&& !(trimmed[0] == 'S' && trimmed[1] == 'O'
+					&& trimmed[2] == ' ')
+				&& !(trimmed[0] == 'E' && trimmed[1] == 'A'
+					&& trimmed[2] == ' ')
+				&& !(trimmed[0] == 'W' && trimmed[1] == 'E'
+					&& trimmed[2] == ' ')
+				&& !(trimmed[0] == 'F' && trimmed[1] == ' ')
+				&& !(trimmed[0] == 'C' && trimmed[1] == ' '))
 				error("garbage in info", params);
 		}
 		free(trimmed);

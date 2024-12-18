@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   textures.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mikus <mikus@student.42.fr>                +#+  +:+       +#+        */
+/*   By: fcasaubo <fcasaubo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/26 11:36:56 by fcasaubo          #+#    #+#             */
-/*   Updated: 2024/12/17 21:38:03 by mikus            ###   ########.fr       */
+/*   Updated: 2024/12/18 18:32:41 by fcasaubo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,33 +21,43 @@ int	str_to_hex(char *str, t_data *data, t_params *params)
 {
 	char	**splitted;
 	int		retval;
+	int		i;
+	bool	error_var;
 
+	i = -1;
 	splitted = ft_split(str, ',');
-	if (arr_len(splitted) != 3)
+	error_var = false;
+	while (splitted[++i])
+		if (ft_strlen(splitted[i]) < 1
+			|| ft_strlen(splitted[i]) > 3 || atoi(splitted[i]) > 255)
+			error_var = true;
+	if (error_var || arr_len(splitted) != 3)
 	{
 		free_array((void **)splitted);
 		free_data(data);
 		error("Wrong ceiling or floor color!", params);
 	}
-	retval = to_rgba_hex(ft_atoi(splitted[0]), ft_atoi(splitted[1]), ft_atoi(splitted[2]), 255);
+	retval = to_rgba_hex
+		(ft_atoi(splitted[0]), ft_atoi(splitted[1]), ft_atoi(splitted[2]), 255);
 	free_array((void **)splitted);
-	return(retval);
+	return (retval);
 }
 
 t_texture	texture_formatter(mlx_texture_t *texture)
 {
-	int			x;
+	uint32_t	x;
+	uint32_t	y;
 	int			k;
-	int			y;
 	t_texture	new_texture;
 
 	y = -1;
-	new_texture.pixels = ft_calloc(texture->height, sizeof(int *));
+	new_texture.pixels = ft_calloc((texture->height + 1), sizeof(uint32_t *));
 	new_texture.width = texture->width;
 	new_texture.height = texture->height;
 	while (++y < texture->height)
 	{
-		new_texture.pixels[y] = ft_calloc(texture->width, sizeof(int));
+		new_texture.pixels[y] = \
+			ft_calloc((texture->width + 1), sizeof(uint32_t));
 		x = -1;
 		k = texture->width * 4 * y;
 		while (++x < texture->width)
@@ -58,7 +68,6 @@ t_texture	texture_formatter(mlx_texture_t *texture)
 			k += 4;
 		}
 	}
-	new_texture.pixels[y] = NULL;
 	mlx_delete_texture(texture);
 	return (new_texture);
 }

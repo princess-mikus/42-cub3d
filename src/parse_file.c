@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_file.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aarranz- <aarranz-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fcasaubo <fcasaubo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/10 18:54:08 by mikus             #+#    #+#             */
-/*   Updated: 2024/12/18 12:48:37 by aarranz-         ###   ########.fr       */
+/*   Updated: 2024/12/18 18:24:17 by fcasaubo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,9 +35,17 @@ void	dump_info2(t_params *params)
 		while (params->raw[i][++j] != '\0')
 		{
 			if (params->raw[i][j] == 'C' && params->raw[i][j + 1] == ' ')
+			{
+				if (params->c)
+					error("More than one ceiling!", params);
 				params->c = take_path(ft_strdup(params->raw[i]), 1);
+			}
 			else if (params->raw[i][j] == 'F' && params->raw[i][j + 1] == ' ')
+			{
+				if (params->f)
+					error("More than one floor!", params);
 				params->f = take_path(ft_strdup(params->raw[i]), 1);
+			}
 		}
 	}
 }
@@ -55,16 +63,32 @@ void	dump_info(t_params *params)
 		{
 			if (params->raw[i][j] == 'N' && params->raw[i][j + 1] == 'O'
 			&& params->raw[i][j + 2] == ' ')
+			{
+				if (params->no)
+					error("More than one North Texture!", params);
 				params->no = take_path(ft_strdup(params->raw[i]), 2);
+			}
 			else if (params->raw[i][j] == 'S' && params->raw[i][j + 1] == 'O'
 			&& params->raw[i][j + 2] == ' ')
+			{
+				if (params->so)
+					error("More than one South Texture!", params);
 				params->so = take_path(ft_strdup(params->raw[i]), 2);
+			}
 			else if (params->raw[i][j] == 'E' && params->raw[i][j + 1] == 'A'
 			&& params->raw[i][j + 2] == ' ')
+			{
+				if (params->ea)
+					error("More than one East Texture!", params);
 				params->ea = take_path(ft_strdup(params->raw[i]), 2);
+			}
 			else if (params->raw[i][j] == 'W' && params->raw[i][j + 1] == 'E'
 			&& params->raw[i][j + 2] == ' ')
+			{
+				if (params->we)
+					error("More than one West Texture!", params);
 				params->we = take_path(ft_strdup(params->raw[i]), 2);
+			}
 		}
 	}
 }

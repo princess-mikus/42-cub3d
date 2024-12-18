@@ -3,19 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mikus <mikus@student.42.fr>                +#+  +:+       +#+        */
+/*   By: fcasaubo <fcasaubo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/10 13:31:00 by fcasaubo          #+#    #+#             */
-/*   Updated: 2024/12/17 21:05:28 by mikus            ###   ########.fr       */
+/*   Updated: 2024/12/18 18:29:52 by fcasaubo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-int		arr_len(char **array)
+int	arr_len(char **array)
 {
 	int	retval;
-	
+
 	retval = 0;
 	while (array[retval])
 		retval++;
@@ -34,7 +34,7 @@ double	radian_to_circle(double angle)
 int	red_cross(t_params *params)
 {
 	free_map(params);
-	exit(0);
+	exit(EXIT_FAILURE);
 	return (0);
 }
 
@@ -44,7 +44,7 @@ void	error(char *message, t_params *params)
 	write(2, message, ft_strlen(message));
 	write(2, "\n", 1);
 	free_map(params);
-	exit(0);
+	exit(EXIT_FAILURE);
 }
 
 double	deg_to_rad(double deg)

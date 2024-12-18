@@ -3,29 +3,29 @@
 /*                                                        :::      ::::::::   */
 /*   ft_printf.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: xortega <xortega@student.42.fr>            +#+  +:+       +#+        */
+/*   By: fcasaubo <fcasaubo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/02 13:49:36 by xortega           #+#    #+#             */
-/*   Updated: 2024/04/03 12:44:02 by xortega          ###   ########.fr       */
+/*   Created: 2023/06/02 14:26:19 by fcasaubo          #+#    #+#             */
+/*   Updated: 2023/06/22 12:23:27 by fcasaubo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "ft_printf.h"
 
-static int	ft_check(char c, va_list lst)
+int	ft_starter(char c, va_list lst)
 {
 	if (c == 'c')
-		return (print_char(lst));
+		return (ft_write_character(lst));
 	else if (c == 's')
-		return (print_string(lst));
+		return (ft_write_string(lst));
 	else if (c == 'p')
-		return (print_addres(lst));
+		return (ft_write_address(lst));
 	else if (c == 'd' || c == 'i')
-		return (print_number(lst));
+		return (ft_write_number(lst));
 	else if (c == 'u')
-		return (print_unsigned(lst));
+		return (ft_write_unsigned(lst));
 	else if (c == 'x' || c == 'X')
-		return (print_hex(lst, c));
+		return (ft_write_hex(lst, c));
 	else if (c == '%')
 		return ((int)write(1, "%", 1));
 	return (0);
@@ -34,26 +34,26 @@ static int	ft_check(char c, va_list lst)
 int	ft_printf(char const *str, ...)
 {
 	va_list	lst;
-	int		out;
-	int		counter;
-	int		write_count;
+	int		i;
+	int		count;
 
-	counter = 0;
-	out = 0;
+	i = 0;
+	count = 0;
 	va_start(lst, str);
-	while (str[counter])
+	while (str[i])
 	{
-		if (str[counter] == '%')
+		if (str[i] == '%')
 		{
-			write_count = ft_check(str[++counter], lst);
-			if (write_count == -1)
-				return (write_count);
-			out += write_count;
+			count += ft_starter(str[i + 1], lst);
+			i += 2;
 		}
 		else
-			out += (write(1, &str[counter], 1));
-		counter++;
+		{
+			count = write(1, &(str[i]), 1);
+			i++;
+			count++;
+		}
 	}
 	va_end(lst);
-	return (out);
+	return (count);
 }

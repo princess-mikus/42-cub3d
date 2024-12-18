@@ -3,42 +3,60 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: xortega <xortega@student.42.fr>            +#+  +:+       +#+        */
+/*   By: fcasaubo <fcasaubo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/03 10:40:56 by xortega           #+#    #+#             */
-/*   Updated: 2024/04/03 12:44:02 by xortega          ###   ########.fr       */
+/*   Created: 2023/04/25 13:23:10 by fcasaubo          #+#    #+#             */
+/*   Updated: 2023/05/25 14:50:36 by fcasaubo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static int	count(char const *s, char c)
+static char	**ft_free(char **ptr, int k)
+{
+	while (k--)
+		free(ptr[k]);
+	free(ptr);
+	return (NULL);
+}
+
+static int	ft_get_total_words(char const *s, char c)
 {
 	int	i;
-	int	k;
+	int	index;
 
 	i = 0;
-	k = 1;
+	index = 1;
 	if (s[i] == '\0')
 		return (0);
 	if (c == '\0')
-		k--;
+		index--;
 	while (s[i])
 	{
 		if (s[i] != c && s[i + 1] == c)
-			k++;
+			index++;
 		i++;
 	}
 	if (s[i - 1] == c)
-		k--;
-	return (k);
+		index--;
+	return (index);
 }
 
-static int	locate(char const *s, char c, int a)
+static int	ft_init_j(const char *s, char c, int j, int i)
 {
-	int	i;
+	j = i;
+	while (s[j])
+	{
+		if (s[j] != c)
+			return (j);
+		j++;
+	}
+	return (j);
+}
 
-	i = a;
+static int	ft_init_i(const char *s, char c, int i, int j)
+{
+	i = j;
 	while (s[i])
 	{
 		if (s[i] == c)
@@ -48,52 +66,30 @@ static int	locate(char const *s, char c, int a)
 	return (i);
 }
 
-static int	omit(char const *s, char c, int a)
-{
-	int	i;
-
-	i = a;
-	while (s[i])
-	{
-		if (s[i] != c)
-			return (i);
-		i++;
-	}
-	return (i);
-}
-
-static char	**del(int k, char **dst)
-{
-	while (--k >= 0)
-		free(dst[k]);
-	free(dst);
-	return (NULL);
-}
-
 char	**ft_split(char const *s, char c)
 {
-	char	**dst;
-	int		l;
-	int		k;
-	int		a;
 	int		i;
+	int		j;
+	int		k;
+	int		index;
+	char	**str;
 
-	if (!s)
+	if (s != NULL)
+		str = malloc((ft_get_total_words(s, c) + 1) * sizeof(char *));
+	if (!s || (s && !str))
 		return (NULL);
-	k = 0;
-	l = count(s, c);
-	dst = malloc((l + 1) * sizeof(char *));
-	if (dst == NULL)
-		return (NULL);
+	index = ft_get_total_words(s, c);
 	i = 0;
-	while (l-- > 0 && !(c == '\0' && s[0] == '\0'))
+	j = 0;
+	k = 0;
+	while (index-- > 0)
 	{
-		a = omit(s, c, i);
-		i = locate(s, c, a);
-		dst[k] = ft_substr(s, a, (i - a));
-		if (dst[k++] == NULL)
-			return (del(k, dst));
+		j = ft_init_j(s, c, j, i);
+		i = ft_init_i(s, c, i, j);
+		str[k] = ft_substr(s, j, i - j);
+		if (str[k++] == NULL)
+			return (ft_free(str, k));
 	}
-	dst[count(s, c)] = NULL;
-	return (dst);
+	str[k] = NULL;
+	return (str);
 }

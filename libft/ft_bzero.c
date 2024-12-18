@@ -3,20 +3,23 @@
 /*                                                        :::      ::::::::   */
 /*   ft_bzero.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: xortega <xortega@student.42.fr>            +#+  +:+       +#+        */
+/*   By: fcasaubo <fcasaubo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/04/20 15:10:56 by xortega           #+#    #+#             */
-/*   Updated: 2024/04/03 12:44:02 by xortega          ###   ########.fr       */
+/*   Created: 2023/04/18 11:28:50 by fcasaubo          #+#    #+#             */
+/*   Updated: 2023/05/15 11:04:56 by fcasaubo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	ft_bzero(void *str, size_t n)
+void	ft_bzero(void *b, size_t len)
 {
-	size_t	c;
+	size_t	i;
 
-	c = -1;
-	while (++c < n)
-		((char *)str)[c] = '\0';
+	i = 0;
+	while (i < len)
+	{
+		((char *)b)[i] = '\0';
+		i++;
+	}
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw_textures.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mikus <mikus@student.42.fr>                +#+  +:+       +#+        */
+/*   By: fcasaubo <fcasaubo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/11 11:47:55 by fcasaubo          #+#    #+#             */
-/*   Updated: 2024/12/17 22:14:09 by mikus            ###   ########.fr       */
+/*   Updated: 2024/12/18 18:38:46 by fcasaubo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,48 +16,56 @@ void	draw_north_texture(t_data *data, int x, int y)
 {
 	int	tx;
 	int	ty;
+	int	texture_width;
 
-	tx = data->ray[x].ray_x * data->texture.north.width / 64;
+	texture_width = data->texture.north.width;
+	tx = data->ray[x].ray_x * texture_width / 64;
 	ty = ((y - data->sky_size + data->wall_diff / 2)
 			* data->texture.north.height) / (data->wall_size + data->wall_diff);
 	mlx_put_pixel(data->viewpoint, x, y,
-		data->texture.north.pixels[ty][tx % data->texture.north.width]);
+		data->texture.north.pixels[ty][tx % texture_width]);
 }
 
 void	draw_south_texture(t_data *data, int x, int y)
 {
 	int	tx;
 	int	ty;
+	int	texture_width;
 
-	tx = data->ray[x].ray_x * data->texture.south.width / 64;
+	texture_width = data->texture.south.width - 1;
+	tx = data->ray[x].ray_x * texture_width / 64;
 	ty = ((y - data->sky_size + data->wall_diff / 2)
 			* data->texture.south.height) / (data->wall_size + data->wall_diff);
 	mlx_put_pixel(data->viewpoint, x, y,
-		data->texture.south.pixels[ty][(data->texture.south.width - tx) % data->texture.south.width]);
+		data->texture.south.pixels[ty][(texture_width - (tx % texture_width))]);
 }
 
 void	draw_west_texture(t_data *data, int x, int y)
 {
 	int	tx;
 	int	ty;
+	int	texture_width;
 
-	tx = data->ray[x].ray_y * data->texture.west.width / 64;
+	texture_width = data->texture.west.width - 1;
+	tx = data->ray[x].ray_y * texture_width / 64;
 	ty = ((y - data->sky_size + data->wall_diff / 2)
 			* data->texture.west.height) / (data->wall_size + data->wall_diff);
 	mlx_put_pixel(data->viewpoint, x, y,
-		data->texture.west.pixels[ty][(data->texture.west.width - tx) % data->texture.west.width]);
+		data->texture.west.pixels[ty][(texture_width - (tx % texture_width))]);
 }
 
 void	draw_east_texture(t_data *data, int x, int y)
 {
 	int	tx;
 	int	ty;
+	int	texture_width;
 
-	tx = data->ray[x].ray_y * data->texture.east.width / 64;
+	texture_width = data->texture.east.width;
+	tx = data->ray[x].ray_y * texture_width / 64;
 	ty = ((y - data->sky_size + data->wall_diff / 2)
 			* data->texture.east.height) / (data->wall_size + data->wall_diff);
 	mlx_put_pixel(data->viewpoint, x, y,
-		data->texture.east.pixels[ty][tx % data->texture.east.width]);
+		data->texture.east.pixels[ty][tx % texture_width]);
 }
 
 void	draw_textures(t_data *data, int x, int y)
@@ -67,7 +75,7 @@ void	draw_textures(t_data *data, int x, int y)
 	else if (data->ray[x].type == 'h')
 		draw_south_texture(data, x, y);
 	else if (data->ray[x].type == 'v'
-		&& data->ray[x].angle < NORTH || data->ray[x].angle > SOUTH)
+		&& (data->ray[x].angle < NORTH || data->ray[x].angle > SOUTH))
 		draw_west_texture(data, x, y);
 	else
 		draw_east_texture(data, x, y);

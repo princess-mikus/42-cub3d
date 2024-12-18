@@ -6,7 +6,7 @@
 /*   By: fcasaubo <fcasaubo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/20 12:38:16 by fcasaubo          #+#    #+#             */
-/*   Updated: 2024/12/12 12:18:40 by fcasaubo         ###   ########.fr       */
+/*   Updated: 2024/12/18 12:47:39 by fcasaubo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ void	draw_image(t_data *data)
 	data->viewpoint = mlx_new_image(data->mlx, WIDTH, HEIGHT);
 	while (++x < WIDTH)
 	{
-		data->wall_size = (64 * HEIGHT) / data->ray[x].lenght / 2;
+		data->wall_size = (64 * HEIGHT) / data->ray[x].lenght;
 		if (data->wall_size > HEIGHT)
 		{
 			data->wall_diff = data->wall_size - HEIGHT;

@@ -6,7 +6,7 @@
 /*   By: fcasaubo <fcasaubo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/10 13:03:13 by fcasaubo          #+#    #+#             */
-/*   Updated: 2024/12/18 12:07:38 by fcasaubo         ###   ########.fr       */
+/*   Updated: 2024/12/18 18:34:48 by fcasaubo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,18 +29,16 @@ bool	check_x(char **map, int x, int y, t_params *params)
 
 bool	search_map(char **map, t_params *params)
 {
-	int		y;
-	int		x;
+	int	y;
+	int	x;
 
 	y = -1;
 	while (map[++y])
 	{
 		x = -1;
 		while (map[y][++x])
-		{
 			if (map[y][x] == 'X' && !check_x(map, x, y, params))
 				return (false);
-		}
 	}
 	return (true);
 }
@@ -66,8 +64,8 @@ bool	in_list(t_fflst *to_check, t_fflst *current)
 
 void	search_inner_floors(t_params *params, char **map, t_fflst **positions)
 {
-	int			x;
-	int			y;
+	int		x;
+	int		y;
 	t_fflst	*to_check;
 
 	to_check = *positions;
@@ -96,17 +94,15 @@ void	search_inner_floors(t_params *params, char **map, t_fflst **positions)
 bool	is_closed(t_params *params)
 {
 	t_fflst	*positions;
-	char		**map_cpy;
-	int			i;
-	bool		retval;
+	char	**map_cpy;
+	int		i;
+	bool	retval;
 
 	positions = c3d_lstnew(params->player_y, params->player_x);
 	map_cpy = malloc((params->map_height) * sizeof(char *));
 	i = -1;
 	while (params->map[++i])
-	{
 		map_cpy[i] = ft_strdup(params->map[i]);
-	}
 	map_cpy[i] = NULL;
 	search_inner_floors(params, map_cpy, &positions);
 	while (positions)

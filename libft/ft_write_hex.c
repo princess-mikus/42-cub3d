@@ -1,26 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstsize.c                                       :+:      :+:    :+:   */
+/*   ft_write_hex.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: xortega <xortega@student.42.fr>            +#+  +:+       +#+        */
+/*   By: fcasaubo <fcasaubo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/10 11:52:52 by xortega           #+#    #+#             */
-/*   Updated: 2024/04/03 12:44:02 by xortega          ###   ########.fr       */
+/*   Created: 2023/06/06 12:02:33 by fcasaubo          #+#    #+#             */
+/*   Updated: 2023/06/15 12:50:49 by fcasaubo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "ft_printf.h"
 
-int	ft_lstsize(t_list *lst)
+int	ft_write_hex(va_list lst, char c)
 {
-	size_t	sl;
+	int	number;
 
-	sl = 0;
-	while (lst)
-	{
-		lst = lst -> next;
-		sl++;
-	}
-	return (sl);
+	number = va_arg(lst, int);
+	if (c == 'x')
+		return (ft_putnbr_hex_fd(number, 1, 0));
+	else
+		return (ft_putnbr_hex_fd(number, 1, 1));
 }

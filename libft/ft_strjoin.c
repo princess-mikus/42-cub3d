@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strjoin.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: xortega <xortega@student.42.fr>            +#+  +:+       +#+        */
+/*   By: fcasaubo <fcasaubo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/04/21 11:59:25 by xortega           #+#    #+#             */
-/*   Updated: 2024/04/03 12:44:02 by xortega          ###   ########.fr       */
+/*   Created: 2023/04/21 13:00:09 by fcasaubo          #+#    #+#             */
+/*   Updated: 2023/05/15 11:03:40 by fcasaubo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,18 +14,18 @@
 
 char	*ft_strjoin(char const *s1, char const *s2)
 {
-	char	*dst;
+	char	*ptr;
 	size_t	flen;
-	size_t	slen;
+	size_t	tlen;
 
-	if (!s1 || !s2)
+	if (s1 == NULL || s2 == NULL)
 		return (NULL);
-	flen = ft_strlen(s1) + 1;
-	slen = ft_strlen(s2);
-	dst = malloc((slen + flen) * sizeof(char));
-	if (!dst)
-		return (NULL);
-	ft_strlcpy(dst, s1, flen);
-	ft_strlcat(dst, s2, (slen + flen));
-	return (dst);
+	flen = ft_strlen(s1);
+	tlen = ft_strlen(s2) + flen;
+	ptr = malloc(tlen + 1 * sizeof(char));
+	if (ptr == NULL)
+		return (ptr);
+	ft_strlcpy(ptr, s1, flen + 1);
+	ft_strlcat(ptr, s2, tlen + 1);
+	return (ptr);
 }

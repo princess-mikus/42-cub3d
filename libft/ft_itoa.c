@@ -3,73 +3,78 @@
 /*                                                        :::      ::::::::   */
 /*   ft_itoa.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: xortega <xortega@student.42.fr>            +#+  +:+       +#+        */
+/*   By: Mikus <Kiankocasaubon01@gmail.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/04 11:23:42 by xortega           #+#    #+#             */
-/*   Updated: 2024/04/03 12:44:02 by xortega          ###   ########.fr       */
+/*   Created: 2023/04/26 11:19:06 by fcasaubo          #+#    #+#             */
+/*   Updated: 2023/06/11 15:50:21 by Mikus            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static int	magnitude(int n)
+static int	ft_isnegative(int *n)
 {
-	int	i;
-
-	i = 1;
-	if (n < 0)
-		n *= -1;
-	while (n > 9)
+	if (*n < 0)
 	{
-		n /= 10;
-		i *= 10;
+		*n *= -1;
+		return (1);
 	}
-	return (i);
+	return (0);
 }
 
-static int	size(int n)
+static char	*ft_edge_cases(int n)
 {
-	int	i;
+	char	*arr;
 
-	i = 1;
-	if (n < 0)
+	if (n == -2147483648)
 	{
-		n *= -1;
-		i++;
+		arr = malloc (12 * sizeof(char));
+		if (arr == NULL)
+			return (NULL);
+		ft_strlcpy(arr, "-2147483648", 12);
 	}
-	while (n > 9)
+	if (n == 2147483647)
 	{
-		n /= 10;
-		i += 1;
+		arr = malloc (11 * sizeof(char));
+		if (arr == NULL)
+			return (NULL);
+		ft_strlcpy(arr, "2147483647", 11);
 	}
-	return (i);
+	if (n == 0)
+	{
+		arr = malloc (2 * sizeof(char));
+		if (arr == NULL)
+			return (NULL);
+		arr[0] = '0';
+		arr[1] = '\0';
+	}
+	return (arr);
 }
 
 char	*ft_itoa(int n)
 {
-	char	*dst;
-	int		mag;
-	int		i;
+	unsigned int	div;
+	int				len;
+	int				neg;
+	char			*arr;
 
-	i = 0;
-	mag = magnitude(n);
-	if (n == -2147483648)
-		return (ft_strdup("-2147483648"));
-	dst = malloc((size(n) + 1) * sizeof(char));
-	if (!dst)
+	div = 1;
+	neg = ft_isnegative(&n);
+	len = neg;
+	if (n == -2147483648 || n == 2147483647 || n == 0)
+		return (ft_edge_cases(n));
+	while ((n / div > 0) && ++len > 0)
+		div *= 10;
+	arr = malloc((++len) * sizeof(char));
+	if (arr == NULL)
 		return (NULL);
-	if (n < 0)
+	arr[--len] = '\0';
+	while (--len >= (0 + neg))
 	{
-		dst[i++] = '-';
-		n *= -1;
+		arr[len] = (n % 10) + 48;
+		n = n / 10;
 	}
-	while (mag > 0)
-	{
-		dst[i] = ((n / mag) + 48);
-		n %= mag;
-		mag /= 10;
-		i++;
-	}
-	dst[i] = 0;
-	return (dst);
+	if (neg == 1)
+		arr[0] = '-';
+	return (arr);
 }

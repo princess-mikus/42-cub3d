@@ -3,77 +3,72 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strtrim.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: xortega <xortega@student.42.fr>            +#+  +:+       +#+        */
+/*   By: mikus <mikus@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/04/26 12:48:33 by xortega           #+#    #+#             */
-/*   Updated: 2024/04/03 12:44:02 by xortega          ###   ########.fr       */
+/*   Created: 2023/04/24 10:33:23 by fcasaubo          #+#    #+#             */
+/*   Updated: 2023/12/27 12:35:32 by mikus            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static int	check(char s1, char const *set)
+static int	ft_revcompare(char const *s1, char const *set, int len, int i)
+{
+	int	j;
+
+	j = 0;
+	while (len - 1 >= i)
+	{
+		while (s1[len - 1] != set[j] && set[j])
+			j++;
+		if (!set[j])
+			return (len);
+		else
+			len--;
+		j = 0;
+	}
+	return (len);
+}
+
+static int	ft_compare(char const *s1, char const *set)
 {
 	int	i;
+	int	j;
 
 	i = 0;
-	while (set[i])
+	j = 0;
+	while (s1[i])
 	{
-		if (set[i] == s1 || s1 == '\0')
-			return (1);
-		i++;
+		while (s1[i] != set[j] && set[j])
+			j++;
+		if (!set[j])
+			return (i);
+		else
+			i++;
+		j = 0;
 	}
 	return (0);
 }
 
-static size_t	trim_search(char const *s1, char const *set)
-{
-	size_t	i;
-
-	i = 0;
-	while (s1[i])
-	{
-		if (check(s1[i], set) == 1)
-			i++;
-		else
-			break ;
-	}
-	return (i);
-}
-
-static size_t	trim_rsearch(char const *s1, char const *set)
-{
-	size_t	size;
-
-	size = ft_strlen(s1);
-	while (size > 0)
-	{
-		if (check(s1[size], set) == 1)
-			size--;
-		else
-			break ;
-	}
-	return (size);
-}
-
 char	*ft_strtrim(char const *s1, char const *set)
 {
-	char	*dst;
-	size_t	s;
-	size_t	rs;
+	char	*ptr;
+	int		i;
+	int		j;
+	int		k;
+	int		len;
 
-	if (!s1 || !set)
+	if (s1 == NULL || set == NULL)
 		return (NULL);
-	s = trim_search(s1, set);
-	rs = trim_rsearch(s1, set);
-	if (rs == 0 || s == ft_strlen(s1))
-		dst = malloc(1);
-	else if (set[0] == '\0')
-		dst = malloc(((rs - s) + 1) * sizeof(char));
-	else
-		dst = malloc(((rs - s) + 2) * sizeof(char));
-	if (!dst)
+	len = ft_strlen(s1);
+	i = ft_compare(s1, set);
+	j = ft_revcompare(s1, set, len, i);
+	ptr = malloc(((j - i) + 1) * sizeof(char));
+	if (!ptr)
 		return (NULL);
-	ft_strlcpy(dst, (s1 + s), (rs - s) + 2);
-	return (dst);
+	k = 0;
+	while (i < j && s1[i])
+		ptr[k++] = s1[i++];
+	ptr[k] = '\0';
+	return (ptr);
 }

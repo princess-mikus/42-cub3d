@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mikus <mikus@student.42.fr>                +#+  +:+       +#+        */
+/*   By: fcasaubo <fcasaubo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/11 11:59:23 by fcasaubo          #+#    #+#             */
-/*   Updated: 2024/12/17 20:53:56 by mikus            ###   ########.fr       */
+/*   Updated: 2024/12/18 18:34:20 by fcasaubo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,6 @@ void	free_data(t_data *data)
 	if (data->mlx)
 	{
 		mlx_delete_image(data->mlx, data->viewpoint);
-		mlx_terminate(data->mlx);	
+		mlx_terminate(data->mlx);
 	}
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mikus <mikus@student.42.fr>                +#+  +:+       +#+        */
+/*   By: fcasaubo <fcasaubo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/17 12:25:37 by fcasaubo          #+#    #+#             */
-/*   Updated: 2024/12/17 22:19:47 by mikus            ###   ########.fr       */
+/*   Updated: 2024/12/18 18:51:48 by fcasaubo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,8 @@ void	dump_map2(t_params *params, size_t k);
 void	check_char_map(t_params *params, int k);
 void	longest_line(t_params *params, int k);
 bool	is_closed(t_params *params);
+void	info_manager(t_params *params, int i);
+void	parse_info(t_params *params, int info_height);
 
 //------------------------------------------------------------------------------
 //			LEAKS CONTROL

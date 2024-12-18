@@ -1,22 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   char.c                                             :+:      :+:    :+:   */
+/*   ft_write_number.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: xortega <xortega@student.42.fr>            +#+  +:+       +#+        */
+/*   By: fcasaubo <fcasaubo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/07 10:05:07 by xortega           #+#    #+#             */
-/*   Updated: 2024/04/03 12:44:02 by xortega          ###   ########.fr       */
+/*   Created: 2023/06/06 11:54:45 by fcasaubo          #+#    #+#             */
+/*   Updated: 2023/06/19 11:54:19 by fcasaubo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "ft_printf.h"
 
-int	print_char(va_list lst)
+int	ft_write_number(va_list lst)
 {
-	int	c;
+	int		number;
 
-	c = va_arg(lst, int);
-	write(1, &c, 1);
-	return (1);
+	number = va_arg(lst, int);
+	return (ft_putnbrpf_fd(number, 1));
 }
