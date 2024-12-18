@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_dump_map.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fcasaubo <fcasaubo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aarranz- <aarranz-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/10 19:03:43 by mikus             #+#    #+#             */
-/*   Updated: 2024/12/17 12:12:15 by fcasaubo         ###   ########.fr       */
+/*   Updated: 2024/12/18 16:19:19 by aarranz-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,11 +21,13 @@ void	dump_map2(t_params *params, size_t k)
 
 	i = k;
 	j = 0;
-	params->map_height = params->raw_heigth - i + 1;
+	params->map_height = params->raw_heigth - i;
 	params->map = ft_calloc(sizeof(char *), (params->map_height + 1));
+	printf("%s\n", params->raw[i]);
 	while (params->raw[i])
 	{
 		player_position(params, params->raw[i], j, &player_found);
+		printf("%d %d\n", params->player_x, params->player_y);
 		params->map[j] = ft_calloc(sizeof(char), (params->longest + 1));
 		l = -1;
 		while (++l <= params->longest)
@@ -105,6 +107,14 @@ void	dump_map(t_params *params)
 				info_line++;
 		}
 	}
+	if(info_line != 6)
+		error("missing info", params);
+	info_manager(params, i);
+}
+
+void	info_manager(t_params *params, int i)
+{
+	parse_info(params, i);
 	check_char_map(params, i);
 	longest_line(params, i);
 	dump_map2(params, i);
