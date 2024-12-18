@@ -6,7 +6,7 @@
 /*   By: fcasaubo <fcasaubo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/10 13:03:13 by fcasaubo          #+#    #+#             */
-/*   Updated: 2024/12/17 12:33:08 by fcasaubo         ###   ########.fr       */
+/*   Updated: 2024/12/18 12:07:38 by fcasaubo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,7 @@ void	search_inner_floors(t_params *params, char **map, t_fflst **positions)
 		c3d_lstadd_back(positions, c3d_lstnew(y, x + 1));
 	if (y > 0 && map[y - 1][x] != '1' && map[y - 1][x] != 'X')
 		c3d_lstadd_back(positions, c3d_lstnew(y - 1, x));
-	if (y < params->map_height - 1 && map[y + 1][x] != '1'
+	if (y < params->map_height - 2 && map[y + 1][x] != '1'
 		&& map[y + 1][x] != 'X')
 		c3d_lstadd_back(positions, c3d_lstnew(y + 1, x));
 	map[y][x] = 'X';
