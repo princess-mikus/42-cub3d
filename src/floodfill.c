@@ -6,7 +6,7 @@
 /*   By: fcasaubo <fcasaubo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/10 13:03:13 by fcasaubo          #+#    #+#             */
-/*   Updated: 2024/12/18 18:34:48 by fcasaubo         ###   ########.fr       */
+/*   Updated: 2024/12/18 19:04:30 by fcasaubo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,11 +99,10 @@ bool	is_closed(t_params *params)
 	bool	retval;
 
 	positions = c3d_lstnew(params->player_y, params->player_x);
-	map_cpy = malloc((params->map_height) * sizeof(char *));
+	map_cpy = ft_calloc((params->map_height + 1), sizeof(char *));
 	i = -1;
 	while (params->map[++i])
 		map_cpy[i] = ft_strdup(params->map[i]);
-	map_cpy[i] = NULL;
 	search_inner_floors(params, map_cpy, &positions);
 	while (positions)
 		search_inner_floors(params, map_cpy, &positions);
