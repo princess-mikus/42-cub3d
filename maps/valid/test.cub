@@ -1,10 +1,10 @@
-NO ./textures/Sierpinski.png
-SO ./textures/ER.png
-WE ./textures/Caitvi_good.png
-EA ./textures/Boccher.png
+NO ./textures/signalis/Sierpinski.png
+SO ./textures/signalis/LAB.png
+WE ./textures/signalis/VORSICHT.png
+EA ./textures/signalis/Elevator.png
 
-C 00,00,00
-F 000,000,000
+C 139,143,147
+F 48,1,0
 
 
 11111111111111111111

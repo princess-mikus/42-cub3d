@@ -6,7 +6,7 @@
 /*   By: fcasaubo <fcasaubo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/10 13:31:00 by fcasaubo          #+#    #+#             */
-/*   Updated: 2024/12/18 18:29:52 by fcasaubo         ###   ########.fr       */
+/*   Updated: 2024/12/19 14:06:54 by fcasaubo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,13 +29,6 @@ double	radian_to_circle(double angle)
 	if (angle >= 2 * M_PI)
 		angle -= 2 * M_PI;
 	return (angle);
-}
-
-int	red_cross(t_params *params)
-{
-	free_map(params);
-	exit(EXIT_FAILURE);
-	return (0);
 }
 
 void	error(char *message, t_params *params)
