@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: fcasaubo <fcasaubo@student.42.fr>          +#+  +:+       +#+         #
+#    By: aarranz- <aarranz-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/10/17 12:52:31 by fcasaubo          #+#    #+#              #
-#    Updated: 2024/12/18 18:28:42 by fcasaubo         ###   ########.fr        #
+#    Updated: 2024/12/19 11:45:05 by aarranz-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,6 +19,7 @@ SRC			:=	main.c	 		\
 				textures.c		\
 				draw_image.c	\
 				draw_textures.c	\
+				texture_path_parser.c\
 				init.c			\
 				utils.c			\
 				floodfill.c		\
