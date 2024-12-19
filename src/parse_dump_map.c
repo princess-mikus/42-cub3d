@@ -6,7 +6,7 @@
 /*   By: aarranz- <aarranz-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/10 19:03:43 by mikus             #+#    #+#             */
-/*   Updated: 2024/12/19 12:32:13 by aarranz-         ###   ########.fr       */
+/*   Updated: 2024/12/19 13:14:46 by aarranz-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,6 +113,7 @@ void	dump_map(t_params *params)
 void	info_manager(t_params *params, int i)
 {
 	parse_info(params, i);
+	c_f_numbers(params);
 	check_char_map(params, i);
 	longest_line(params, i);
 	dump_map2(params, i);
