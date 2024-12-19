@@ -6,7 +6,7 @@
 /*   By: aarranz- <aarranz-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/10 18:54:08 by mikus             #+#    #+#             */
-/*   Updated: 2024/12/19 11:42:48 by aarranz-         ###   ########.fr       */
+/*   Updated: 2024/12/19 13:31:09 by aarranz-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ char	*take_path(char *str, int nbr)
 {
 	char	*trimed;
 
-	trimed = ft_strtrim(str, " ");
+	trimed = ft_strtrim(str, " \t\n");
 	free(str);
 	str = ft_strtrim(trimed + nbr, " \n");
 	free(trimed);
