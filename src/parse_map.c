@@ -6,7 +6,7 @@
 /*   By: aarranz- <aarranz-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/08 13:12:10 by aarranz-          #+#    #+#             */
-/*   Updated: 2024/12/18 16:08:36 by aarranz-         ###   ########.fr       */
+/*   Updated: 2024/12/19 12:39:06 by aarranz-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,7 @@ void	parse_map(t_params *params)
 	dump_raw(params);
 	dump_info(params);
 	dump_info2(params);
+	c_f_numbers(params);
 	dump_map(params);
 	if (!is_closed(params))
 		error("Map not closed!", params);
