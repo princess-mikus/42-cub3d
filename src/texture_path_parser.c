@@ -6,7 +6,7 @@
 /*   By: aarranz- <aarranz-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/19 11:30:50 by aarranz-          #+#    #+#             */
-/*   Updated: 2024/12/19 12:59:57 by aarranz-         ###   ########.fr       */
+/*   Updated: 2024/12/19 14:02:18 by aarranz-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,19 +45,19 @@ void	c_f_numbers(t_params *params)
 	int	i;
 
 	i = -1;
-	while(params->c[++i])	
+	while (params->c[++i])
 	{
-		if(params->c[i] == ',')
+		if (params->c[i] == ',')
 			i++;
 		if (ft_isdigit(params->c[i]) == 0)
-			error("error on ceiling", params);			
+			error("error on ceiling", params);
 	}
 	i = -1;
-	while(params->f[++i])	
+	while (params->f[++i])
 	{
-		if(params->f[i] == ',')
+		if (params->f[i] == ',')
 			i++;
 		if (ft_isdigit(params->f[i]) == 0)
-			error("error on floor", params);			
+			error("error on floor", params);
 	}
 }
