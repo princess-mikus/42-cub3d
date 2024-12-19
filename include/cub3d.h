@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fcasaubo <fcasaubo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aarranz- <aarranz-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/17 12:25:37 by fcasaubo          #+#    #+#             */
-/*   Updated: 2024/12/18 18:51:48 by fcasaubo         ###   ########.fr       */
+/*   Updated: 2024/12/19 12:28:15 by aarranz-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,11 @@ void	longest_line(t_params *params, int k);
 bool	is_closed(t_params *params);
 void	info_manager(t_params *params, int i);
 void	parse_info(t_params *params, int info_height);
+void	no_path(t_params *params, int i);
+void	so_path(t_params *params, int i);
+void	ea_path(t_params *params, int i);
+void	we_path(t_params *params, int i);
+void	c_f_numbers(t_params *params);
 
 //------------------------------------------------------------------------------
 //			LEAKS CONTROL
