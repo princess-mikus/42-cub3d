@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_file.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aarranz- <aarranz-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fcasaubo <fcasaubo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/10 18:54:08 by mikus             #+#    #+#             */
-/*   Updated: 2024/12/19 13:31:09 by aarranz-         ###   ########.fr       */
+/*   Updated: 2024/12/19 15:21:49 by fcasaubo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,14 +116,14 @@ void	file_check(t_params *params)
 			|| (params->map_name[ft_strlen(params->map_name) - 2] != 'u')
 			|| (params->map_name[ft_strlen(params->map_name) - 3] != 'c')
 			|| (params->map_name[ft_strlen(params->map_name) - 4] != '.')))
-		error("map extension not valid", params);
+		error("Map extension not valid", params);
 	res = NULL;
 	params->fd = open(params->map_path, O_RDONLY);
 	res = get_next_line(params->fd);
-	if (!res || ft_strlen(res) < 3 || res[0] == '\n')
+	if (!res)
 	{
 		close(params->fd);
-		error("file can't open", params);
+		error("File can't open", params);
 	}
 	free(res);
 	close(params->fd);

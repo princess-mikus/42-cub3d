@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   texture_path_parser.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aarranz- <aarranz-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fcasaubo <fcasaubo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/19 11:30:50 by aarranz-          #+#    #+#             */
-/*   Updated: 2024/12/19 14:02:18 by aarranz-         ###   ########.fr       */
+/*   Updated: 2024/12/19 15:22:16 by fcasaubo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ void	c_f_numbers(t_params *params)
 		if (params->c[i] == ',')
 			i++;
 		if (ft_isdigit(params->c[i]) == 0)
-			error("error on ceiling", params);
+			error("Error on ceiling", params);
 	}
 	i = -1;
 	while (params->f[++i])
@@ -58,6 +58,6 @@ void	c_f_numbers(t_params *params)
 		if (params->f[i] == ',')
 			i++;
 		if (ft_isdigit(params->f[i]) == 0)
-			error("error on floor", params);
+			error("Error on floor", params);
 	}
 }

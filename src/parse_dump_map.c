@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_dump_map.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aarranz- <aarranz-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fcasaubo <fcasaubo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/10 19:03:43 by mikus             #+#    #+#             */
-/*   Updated: 2024/12/19 13:14:46 by aarranz-         ###   ########.fr       */
+/*   Updated: 2024/12/19 15:22:01 by fcasaubo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ void	check_char_map(t_params *params, int k)
 			&& params->raw[i][j] != 'N' && params->raw[i][j] != 'W'
 			&& params->raw[i][j] != 'S' && params->raw[i][j] != 'E'
 			&& params->raw[i][j] != ' ' && params->raw[i][j] != '\n')
-				error("characters in map are invalid", params);
+				error("Characters in map are invalid", params);
 		}
 	}
 }
@@ -106,7 +106,7 @@ void	dump_map(t_params *params)
 		}
 	}
 	if (info_line != 6)
-		error("missing info", params);
+		error("Missing info", params);
 	info_manager(params, i);
 }
 

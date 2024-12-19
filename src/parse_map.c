@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_map.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aarranz- <aarranz-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fcasaubo <fcasaubo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/08 13:12:10 by aarranz-          #+#    #+#             */
-/*   Updated: 2024/12/19 13:14:20 by aarranz-         ###   ########.fr       */
+/*   Updated: 2024/12/19 15:22:08 by fcasaubo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ void	count_lines_len_map(t_params *params)
 		if ((params->map[i][params->map_len] != '1')
 			|| (params->map[i][params->map_len + 1] != '\n'
 			&& params->map[i][params->map_len + 1] != '\0'))
-			error("map char count in lines not valid", params);
+			error("Map char count in lines not valid", params);
 		i++;
 	}
 }
