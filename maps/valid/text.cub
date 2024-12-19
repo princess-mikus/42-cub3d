@@ -1,7 +1,7 @@
-NO ./texture/xpm/direction/TOP.xpm
-SO ./texture/xpm/direction/RIGH.xpm
-WE ./texture/xpm/direction/LEFT.xpm
-EA ./texture/xpm/direction/BACK.xpm
+NO ./textures/signalis/Sierpinski.png
+SO ./textures/signalis/LAB.png
+WE ./textures/signalis/VORSICHT.png
+EA ./textures/signalis/Elevator.png
 
 C 0,255,255
 F 160,160,160

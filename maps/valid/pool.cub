@@ -1,9 +1,9 @@
-SO ./texture/xpm/backrooms/pools/pool_wall.xpm
-NO ./texture/xpm/backrooms/pools/pool_wall.xpm
-WE ./texture/xpm/backrooms/pools/pool.xpm
-EA ./texture/xpm/backrooms/pools/pool.xpm
+SO ./textures/pool/pool_wall.png
+NO ./textures/pool/pool_wall.png
+WE ./textures/pool/pool.png
+EA ./textures/pool/pool.png
 
-C 255,255,255
+C 0,228,255
 F 239,238,226
 
 1111111111111111111111111
