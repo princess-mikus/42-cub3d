@@ -6,7 +6,7 @@
 /*   By: fcasaubo <fcasaubo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/18 16:16:35 by aarranz-          #+#    #+#             */
-/*   Updated: 2024/12/18 18:32:26 by fcasaubo         ###   ########.fr       */
+/*   Updated: 2024/12/19 14:46:22 by fcasaubo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,8 @@ void	parse_info(t_params *params, int info_height)
 	int		i;
 	char	*trimmed;
 
-	i = 0;
-	while (params->raw[i] && i < info_height)
+	i = -1;
+	while (params->raw[++i] && i < info_height)
 	{
 		trimmed = ft_strtrim(params->raw[i], " \t\n");
 		if (trimmed && ft_strlen(trimmed) >= 3)
@@ -32,9 +32,11 @@ void	parse_info(t_params *params, int info_height)
 					&& trimmed[2] == ' ')
 				&& !(trimmed[0] == 'F' && trimmed[1] == ' ')
 				&& !(trimmed[0] == 'C' && trimmed[1] == ' '))
-				error("garbage in info", params);
+			{
+				free(trimmed);
+				error("Garbage in info", params);
+			}
 		}
 		free(trimmed);
-		i++;
 	}
 }
