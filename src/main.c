@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aarranz- <aarranz-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mikus <mikus@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/11 10:58:17 by fcasaubo          #+#    #+#             */
-/*   Updated: 2024/12/18 16:08:23 by aarranz-         ###   ########.fr       */
+/*   Updated: 2024/12/21 13:31:01 by mikus            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,8 @@ int	main(int argc, char **argv)
 	parse_map(&params);
 	init_data(&data, &params);
 	data.mlx = mlx_init(WIDTH, HEIGHT, "cub3d", true);
+	data.viewpoint = mlx_new_image(data.mlx, WIDTH, HEIGHT);
+	mlx_image_to_window(data.mlx, data.viewpoint, 0, 0);
 	free_map(&params);
 	select_ray(&data);
 	draw_image(&data);

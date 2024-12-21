@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw_image.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fcasaubo <fcasaubo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mikus <mikus@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/20 12:38:16 by fcasaubo          #+#    #+#             */
-/*   Updated: 2024/12/18 12:47:39 by fcasaubo         ###   ########.fr       */
+/*   Updated: 2024/12/21 13:30:33 by mikus            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,8 +36,6 @@ void	draw_image(t_data *data)
 	int		x;
 
 	x = -1;
-	mlx_delete_image(data->mlx, data->viewpoint);
-	data->viewpoint = mlx_new_image(data->mlx, WIDTH, HEIGHT);
 	while (++x < WIDTH)
 	{
 		data->wall_size = (64 * HEIGHT) / data->ray[x].lenght;
@@ -56,5 +54,4 @@ void	draw_image(t_data *data)
 			draw_textures(data, x, y);
 		draw_floor(data, y, x);
 	}
-	mlx_image_to_window(data->mlx, data->viewpoint, 0, 0);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw_textures.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fcasaubo <fcasaubo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mikus <mikus@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/11 11:47:55 by fcasaubo          #+#    #+#             */
-/*   Updated: 2024/12/18 18:38:46 by fcasaubo         ###   ########.fr       */
+/*   Updated: 2024/12/21 13:38:38 by mikus            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ void	draw_east_texture(t_data *data, int x, int y)
 
 void	draw_textures(t_data *data, int x, int y)
 {
-	if (data->ray[x].type == 'h' && data->ray[x].angle > M_PI)
+	if (data->ray[x].type == 'h' && data->ray[x].angle < M_PI)
 		draw_north_texture(data, x, y);
 	else if (data->ray[x].type == 'h')
 		draw_south_texture(data, x, y);
