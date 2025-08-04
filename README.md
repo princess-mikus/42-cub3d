@@ -1,7 +1,7 @@
 <h1>🕹️ 42-Cub3d 🕹️</h1>
 <img src="./preview.gif" style="width: 60vw;"></img>
 
-Cub3D is a <a href="https://www.42network.org/">42 School</a> project that involves creating a simple 3D raycasting prototype inspired by classic like Doom and Wolfenstein 3D. Written in C using the <a href="https://github.com/codam-coding-college/MLX42">MiniLibX</a> graphic library
+Cub3D is a <a href="https://www.42network.org/">42 School</a> project that involves creating a simple 3D raycasting prototype inspired by classics like Doom and Wolfenstein 3D. Written in C using the <a href="https://github.com/codam-coding-college/MLX42">MiniLibX</a> graphic library
 
 <h2>✅ Features ✅</h2>
 <ul>
